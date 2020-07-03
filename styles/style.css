@@ -1,0 +1,15 @@
+body {
+  background-color: wheat;
+}
+
+button {
+  height: 10rem;
+  width: 10rem;
+  background-color: rgb(36, 8, 8);
+  color: wheat;
+  transition: .8s;
+}
+
+button:hover {
+  opacity: .9;
+}
