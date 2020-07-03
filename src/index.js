@@ -1,10 +1,12 @@
-var MidiPlayer = require('midi-player-js');
- 
-// Initialize player and register event handler
-var Player = new MidiPlayer.Player(function(event) {
-    console.log(event);
-});
- 
-// Load a MIDI file
-Player.loadFile('./test.mid');
-Player.play();
+document.querySelectorAll("button").forEach(button => {
+    button.addEventListener("mousedown", function(e) {
+        Tone.start()
+        play(this.textContent)
+    })
+})
+
+function play(note) {
+  const synth = new Tone.PolySynth(2).toDestination()
+  
+  synth.triggerAttackRelease(`${note}4`, "8n");
+}
