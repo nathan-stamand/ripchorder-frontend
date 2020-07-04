@@ -13,3 +13,14 @@ button {
 button:hover {
   opacity: .9;
 }
+
+div#all-songs {
+  font-size: 2rem;
+  color: rgb(36, 8, 8);
+}
+
+ul#song-list {
+  list-style: none;
+  color: rgb(36, 8, 8);
+  font-size: large;
+}
