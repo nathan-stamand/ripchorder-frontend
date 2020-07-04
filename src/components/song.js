@@ -1,3 +1,5 @@
 class Song {
-  
+  constructor() {
+    
+  }
 }
