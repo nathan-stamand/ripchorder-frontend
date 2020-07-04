@@ -2,10 +2,10 @@ body {
   background-color: wheat;
 }
 
-button {
+button.chord {
   height: 10rem;
   width: 10rem;
-  background-color: rgb(36, 8, 8);
+  background-color: rgb(50, 25, 7);
   color: wheat;
   transition: .8s;
 }
@@ -16,11 +16,12 @@ button:hover {
 
 div#all-songs {
   font-size: 2rem;
-  color: rgb(36, 8, 8);
+  color: rgb(50, 25, 7);
 }
 
 ul#song-list {
   list-style: none;
-  color: rgb(36, 8, 8);
+  color: rgb(50, 25, 7);
   font-size: large;
+  font-weight: bold;
 }
