@@ -11,4 +11,11 @@ class App {
       application.hideOrUnhideSongs()
     })
   }
+
+  hideOrUnhideSongs() {
+    const allSongs = document.getElementById("all-songs");
+    const songList = document.getElementById("song-list")
+    let symbol = allSongs.getAttribute("data-symbol");
+    allSongsButtoner(allSongs, songList, symbol)
+  }
 }
