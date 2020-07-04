@@ -15,4 +15,16 @@ class Songs {
     })
   }
 
+
+  render() {
+    // const songsContainer = document.getElementById("songs-container")
+    const songList = document.getElementById("song-list")
+    this.songs.forEach(song => {
+      let li = document.createElement("li");
+      li.className = "song";
+      li.id = song.id;
+      li.textContent = song.attributes.title;
+      songList.appendChild(li);
+    })
+  }
 }
