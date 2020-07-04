@@ -25,3 +25,11 @@ ul#song-list {
   font-size: large;
   font-weight: bold;
 }
+
+li.song {
+  padding-bottom: 2ex;
+  padding-top: 1ex;
+  width: 500px;
+  list-style-position: inside;
+  border-bottom: 2px solid rgb(50, 25, 7);
+}
