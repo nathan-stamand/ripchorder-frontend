@@ -17,7 +17,7 @@ class Songs {
 
   render() {
     const songList = document.getElementById("song-list")
-    songList.innerHTML = this.songs.map(song => `<li class="song" id="${song.id}">${song.title}</li>`).join('')
+    songList.innerHTML = this.songs.map(song => song.renderLi()).join('')
     this.createShowDeleteButtons()
   }
 
