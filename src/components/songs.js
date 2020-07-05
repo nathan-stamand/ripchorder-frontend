@@ -8,7 +8,7 @@ class Songs {
 
   fetchAndLoadSongs() {
     this.adapter.getSongs().then(songs => {
-      songs.data.forEach(song => this.songs.push(song));
+      songs.data.forEach(song => this.songs.push(new Song(song)));
     })
     .then(() => {
       this.render()
@@ -16,34 +16,18 @@ class Songs {
   }
 
   render() {
-    // const songsContainer = document.getElementById("songs-container")
     const songList = document.getElementById("song-list")
-    this.songs.forEach(song => {
-      let li = document.createElement("li");
-      li.className = "song";
-      li.id = song.id;
-      li.textContent = `"${song.attributes.title}" by ${song.attributes.author}`;
-      songList.appendChild(li);
-      this.createButtons(li)
-    })
+    songList.innerHTML = this.songs.map(song => `<li class="song" id="${song.id}">${song.title}</li>`).join('')
+    this.createShowDeleteButtons()
   }
 
-  createButtons(li) {
-    const buttonContainer = document.createElement("div")
-    buttonContainer.className = 'button-container'
-    buttonContainer.id = li.id
-    li.appendChild(buttonContainer)
-
-    const deleteButton = document.createElement("button")
-    deleteButton.className = 'delete-button';
-    deleteButton.setAttribute('data-song', li.id);
-    deleteButton.textContent = 'DELETE.'
-
-    const showButton = document.createElement('button')
-    showButton.className = 'show-button'
-    showButton.setAttribute('data-song', li.id);
-    showButton.textContent = 'SHOW.'
-    buttonContainer.appendChild(deleteButton)
-    buttonContainer.appendChild(showButton)
+  createShowDeleteButtons() {
+    const songList = document.getElementsByClassName('song')
+    for (const song of songList) {
+      const title = song.innerHTML
+      const deleteBtn = `<button class='delete-button' data-song='${song.id}'>DELETE</button>`
+      const showBtn = `<button class='show-button' data-song='${song.id}'>SHOW</button>`
+      song.innerHTML = `${title}<div class='button-container' id='${song.id}'>${deleteBtn}${showBtn}</div>`
+    }
   }
 }
