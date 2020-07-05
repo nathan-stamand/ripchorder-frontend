@@ -9,7 +9,7 @@ class Songs {
   initBindingsAndEventListeners() {
     this.songsContainer = document.getElementById('songs-container');
     this.allSongs = document.getElementById('all-songs');
-    this.allSongs.addEventListener('mousedown', () => this.hiderUnhider())
+    this.allSongs.addEventListener('click', () => this.hiderUnhider());
   }
 
   hiderUnhider(e) {
