@@ -42,7 +42,7 @@ class App {
         chordBtn.addEventListener('click', function(e) {
           const allFeeds = Array.from(document.getElementsByClassName('feed'))
           const feed = allFeeds[allFeeds.length -1]
-          const feedChord = document.createElement('button')
+          const feedChord = document.createElement('div')
           feedChord.className = 'feed-chord'
           feedChord.textContent = chordBtn.textContent
           application.addToFeed(feed, feedChord)
@@ -50,7 +50,6 @@ class App {
       }
     });
   }
-
 
   addToFeed(feed, feedChord, ) {
     if (feed.childElementCount > 7) {
