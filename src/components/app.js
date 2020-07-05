@@ -36,13 +36,13 @@ class App {
   }
 
   showSongEventListener() {
-    const showBtns = document.getElementsByClassName('show-button');
-    const application = this;
-    for (const btn of showBtns) {
-      btn.addEventListener('click', function(e) {
-        console.log(this.getAttribute('data-song'))
-      })
-    }
+  //   const showBtns = document.getElementsByClassName('show-button');
+  //   for (const btn of showBtns) {
+  //     btn.addEventListener('click', function(e) {
+  //       const id = btn.getAttribute('data-song')
+  //       this.fetchThisSong(id)
+  //     })
+  //   }
   }
 
   chordEventListener() {
