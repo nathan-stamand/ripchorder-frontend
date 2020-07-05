@@ -3,6 +3,7 @@ class Song {
     this.id = songJson.id;
     this.title = songJson.attributes.title;
     this.chord_feeds = new ChordFeeds(songJson.attributes.chord_feeds);
+    this.custom_chords = songJson.attributes.custom_chords;
     this.adapter = new SongAdapter;
   }
 
