@@ -8,12 +8,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "scribbletune": "^3.8.0",
     "tone": "^13.8.25"
   },
-  "devDependencies": {
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.12"
-  },
+  "devDependencies": {},
   "description": ""
 }
