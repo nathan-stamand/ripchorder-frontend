@@ -2,6 +2,7 @@ class App {
   constructor() {
     this.songs = new Songs;
     this.allSongsEventListener()
+    this.chordEventListener()
   }
 
   allSongsEventListener() {
@@ -31,5 +32,22 @@ class App {
       allSongs.textContent = `${symbolSet['▽']} ALL SONGS`
       songList.hidden = true;
     }
+  }
+
+  chordEventListener() {
+    const application = this;
+    const chordBtns = Array.from(document.getElementsByClassName('chord'))
+    chordBtns.forEach(chordBtn => {
+      if (chordBtn.id != 'new-chord') {
+        chordBtn.addEventListener('click', function(e) {
+          const allFeeds = Array.from(document.getElementsByClassName('feed'))
+          const feed = allFeeds[allFeeds.length -1]
+          const feedChord = document.createElement('button')
+          feedChord.className = 'feed-chord'
+          feedChord.textContent = chordBtn.textContent
+          application.addToFeed(feed, feedChord)
+        })
+      }
+    });
   }
 }
