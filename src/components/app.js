@@ -10,6 +10,7 @@ class App {
     const application = this;
     allSongs.addEventListener("click", () => {
       application.hideOrUnhideSongs()
+      application.showSongEventListener()
     })
   }
 
@@ -31,6 +32,16 @@ class App {
       allSongs.setAttribute('data-symbol', symbolSet['▽'])
       allSongs.textContent = `${symbolSet['▽']} ALL SONGS`
       songList.hidden = true;
+    }
+  }
+
+  showSongEventListener() {
+    const showBtns = document.getElementsByClassName('show-button');
+    const application = this;
+    for (const btn of showBtns) {
+      btn.addEventListener('click', function(e) {
+        console.log(this.getAttribute('data-song'))
+      })
     }
   }
 
