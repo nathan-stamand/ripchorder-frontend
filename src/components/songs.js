@@ -8,6 +8,29 @@ class Songs {
 
   initBindingsAndEventListeners() {
     this.songsContainer = document.getElementById('songs-container');
+    this.allSongs = document.getElementById('all-songs');
+    this.allSongs.addEventListener('mousedown', () => this.hiderUnhider())
+  }
+
+  hiderUnhider(e) {
+    const allSongs = document.getElementById("all-songs");
+    const songList = document.getElementById("song-list")
+    let symbol = allSongs.getAttribute("data-symbol");
+    this.allSongsButtoner(allSongs, songList, symbol)
+  }
+
+  allSongsButtoner(allSongs, songList, symbol) {
+    const symbolSet = {'▷': '▽', '▽': '▷'}
+    if (symbol === '▷') {
+      allSongs.setAttribute('data-symbol', symbolSet['▷'])
+      allSongs.textContent = `${symbolSet['▷']} ALL SONGS`
+      songList.hidden = false;
+    }
+    else {
+      allSongs.setAttribute('data-symbol', symbolSet['▽'])
+      allSongs.textContent = `${symbolSet['▽']} ALL SONGS`
+      songList.hidden = true;
+    }
   }
 
   fetchAndLoadSongs() {
