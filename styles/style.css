@@ -89,3 +89,13 @@ div.feed-chord {
 button#new-chord {
   font-size: 3em;
 }
+
+div#control-panel {
+  padding: 1em;
+}
+
+div#control-panel button {
+  background-color: silver;
+  height: 5rem;
+  width: 5rem;
+}
