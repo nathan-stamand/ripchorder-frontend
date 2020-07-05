@@ -2,7 +2,7 @@ class Songs {
   constructor() {
     this.adapter = new SongsAdapter;
     this.songs = [];
-    this.bindEventListeners()
+    this.initBindingsAndEventListeners()
     this.fetchAndLoadSongs()
   }
 
