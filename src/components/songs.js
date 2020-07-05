@@ -2,14 +2,18 @@ class Songs {
   constructor() {
     this.adapter = new SongsAdapter;
     this.songs = [];
-    this.initBindingsAndEventListeners()
-    this.fetchAndLoadSongs()
+    this.fetchAndLoadSongs();
   }
 
   initBindingsAndEventListeners() {
     this.songsContainer = document.getElementById('songs-container');
     this.allSongs = document.getElementById('all-songs');
-    this.allSongs.addEventListener('click', () => this.hiderUnhider());
+    this.allSongs.addEventListener('click', this.hiderUnhider.bind(this));
+    this.showBtns = document.getElementsByClassName('show-button')
+    const instance = this
+    for (const btn of this.showBtns) {
+      btn.addEventListener('click', this.showSong.bind(instance, btn.getAttribute('data-song')))
+    }
   }
 
   hiderUnhider(e) {
@@ -33,6 +37,12 @@ class Songs {
     }
   }
 
+  showSong(id) {
+    const song = this.songs.find(song => song.id === id)
+    song.display()
+    console.log(song)
+  }
+
   fetchAndLoadSongs() {
     this.adapter.getSongs().then(songs => {
       songs.data.forEach(song => this.songs.push(new Song(song)));
@@ -46,5 +56,6 @@ class Songs {
     const songList = document.getElementById("song-list")
     songList.innerHTML = this.songs.map(song => song.renderLi()).join('')
     Song.createShowDeleteButtons()
+    this.initBindingsAndEventListeners()
   }
 }
