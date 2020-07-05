@@ -13,6 +13,7 @@ button.chord {
   color: wheat;
   transition: .8s;
   margin: 2px;
+  font-size: 1.5rem;
 }
 
 button:hover {
@@ -82,4 +83,8 @@ button.feed-chord {
   border-width: 1px;
   border-color: rgb(67, 74, 99);
   width: 12.5%;
+}
+
+button#new-chord {
+  font-size: 3em;
 }
