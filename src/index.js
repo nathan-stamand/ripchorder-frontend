@@ -1,5 +1,6 @@
 const app = new App
 
+
 // document.querySelectorAll("button").forEach(button => {
 //     button.addEventListener("click", function(e) {
 //         Tone.start()
