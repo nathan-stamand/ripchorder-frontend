@@ -4,16 +4,6 @@ class App {
     this.chordEventListener()
   }
 
-  showSongEventListener() {
-  //   const showBtns = document.getElementsByClassName('show-button');
-  //   for (const btn of showBtns) {
-  //     btn.addEventListener('click', function(e) {
-  //       const id = btn.getAttribute('data-song')
-  //       this.fetchThisSong(id)
-  //     })
-  //   }
-  }
-
   chordEventListener() {
     const application = this;
     const chordBtns = Array.from(document.getElementsByClassName('chord'))
