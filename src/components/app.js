@@ -2,7 +2,6 @@ class App {
   constructor() {
     this.songs = new Songs;
     this.allSongsEventListener()
-    this.scribble()
   }
 
   allSongsEventListener() {
@@ -32,11 +31,5 @@ class App {
       allSongs.textContent = `${symbolSet['▽']} ALL SONGS`
       songList.hidden = true;
     }
-  }
-
-  scribble() {
-    console.log(
-      scribble.chord('CM')
-    )
   }
 }
