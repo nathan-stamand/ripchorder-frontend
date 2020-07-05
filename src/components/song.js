@@ -4,8 +4,4 @@ class Song {
     this.title = songJson.attributes.title;
     this.adapter = new SongAdapter;
   }
-
-  fetchSong() {
-    this.adapter.getSong(id).then(song => console.log(song.data))
-  }
 }
