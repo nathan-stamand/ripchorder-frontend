@@ -50,4 +50,20 @@ class App {
       }
     });
   }
+
+
+  addToFeed(feed, feedChord, ) {
+    if (feed.childElementCount > 7) {
+      const feedContainer = document.getElementById('song-feed-container')
+      const newFeed = document.createElement('div')
+      newFeed.id = feedContainer.childElementCount + 1
+      newFeed.className = 'feed'
+      feedContainer.appendChild(newFeed)
+      newFeed.appendChild(feedChord)
+    }
+    else {
+      feedChord.id = feed.childElementCount + 1
+      feed.appendChild(feedChord)
+    }
+  }
 }
