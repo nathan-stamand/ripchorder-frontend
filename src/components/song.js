@@ -32,6 +32,20 @@ class Song {
     this.chordFeeds.addChordFeeds()
   }
 
+  renderKeyChords() {
+    $('.chord').remove()
+    const chordDegrees = scribble.getChordDegrees(`${this.mode}`)
+    chordDegrees.forEach(degree => {
+      this.addChord(degree)
+    })
+  }
+
+  addChord(degree) {
+    const text = scribble.getChordsByProgression(`${this.key} ${this.mode}`, `${degree}`).replace('-4', '')
+    const chordBtn = `<button id='${degree}' class='chord'>${text}</button>`
+    $(chordBtn).insertBefore('#new-chord')
+  }
+
   addCustomChords() {
     for (const chord of this.customChords) {
       const custChord = document.createElement('button')
