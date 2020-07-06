@@ -7,7 +7,6 @@ class ChordFeed {
   }
 
   renderChordArray() {
-    const feedContainer = document.querySelector('song-feed-')
     return this.chord_array.map(chord => `<div class='feed-chord'>${chord}</div>`).join('')
   }
 }
