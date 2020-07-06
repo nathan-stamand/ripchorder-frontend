@@ -7,6 +7,6 @@ class ChordFeed {
   }
 
   renderChordArray() {
-    return this.chord_array.map(chord => `<div class='feed-chord'>${chord}</div>`).join('')
+    return this.chord_array.map(chord => `<div class='feed-chord'>${chord}</div>`).join(' ')
   }
 }
