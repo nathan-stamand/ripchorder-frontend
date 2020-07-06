@@ -40,7 +40,6 @@ class Songs {
   showSong(id) {
     const song = this.songs.find(song => song.id === id)
     song.display()
-    console.log(song)
   }
 
   fetchAndLoadSongs() {
