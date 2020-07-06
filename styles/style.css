@@ -6,8 +6,8 @@ div#container {
   text-align: center;
 }
 
-button.chord {
-  height: 10rem;
+div#chords-container button {
+  height: 2rem;
   width: 10rem;
   background-color: rgb(50, 25, 7);
   color: wheat;
@@ -87,7 +87,7 @@ div.feed-chord {
 }
 
 button#new-chord {
-  font-size: 3em;
+  font-size: 1em;
 }
 
 div#control-panel {
