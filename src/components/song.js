@@ -6,7 +6,7 @@ class Song {
     this.mode = songJson.attributes.mode;
     this.tempo = songJson.attributes.tempo;
     this.chordFeeds = new ChordFeeds(songJson.attributes.chord_feeds);
-    this.customChords = songJson.attributes.custom_chords;
+    this.customChords = songJson.attributes.custom_chords ? songJson.attributes.custom_chords.split(', ') : null;
     this.adapter = new SongAdapter;
   }
 
@@ -25,25 +25,20 @@ class Song {
   }
 
   display() {
+    this.renderKeyChords()
     if (this.customChords) {
-      this.renderKeyChords()
       this.addCustomChords()
     }
     this.chordFeeds.addChordFeeds()
   }
 
   addCustomChords() {
-    const newChord = document.getElementById('new-chord')
-    const container = document.getElementById('chords-container')
-    const ccArray = this.customChords.split(', ')
-    for (const chord of ccArray) {
-      const chordBtn = document.createElement('button')
-      const idNum = document.getElementById('chords-container').childElementCount.length -1
-      chordBtn.className = 'chord'
-      chordBtn.id = idNum
-      chordBtn.textContent = chord
-      chordBtn.setAttribute('data-song', chord)
-      container.insertBefore(chordBtn, newChord)
+    for (const chord of this.customChords) {
+      const custChord = document.createElement('button')
+      custChord.id = chord
+      custChord.className = 'chord';
+      custChord.textContent = chord
+      $(custChord).insertBefore('#new-chord')
     }
   }
 }
