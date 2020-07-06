@@ -10,4 +10,9 @@ class ChordFeeds {
     });
   }
 
+  addChordFeeds() {
+    const feedContainer = document.getElementById('song-feed-container')
+    feedContainer.innerHTML = this.chordFeeds.map(feed => 
+      `<div id='${feed.position}' class='feed'>${feed.renderChordArray()}</div>`).join(', ')
+  }
 }
