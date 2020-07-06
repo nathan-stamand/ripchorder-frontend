@@ -48,10 +48,7 @@ class Song {
 
   addCustomChords() {
     for (const chord of this.customChords) {
-      const custChord = document.createElement('button')
-      custChord.id = chord
-      custChord.className = 'chord';
-      custChord.textContent = chord
+      const custChord = `<button id='custom-chord' class='chord'>${chord}</button>`
       $(custChord).insertBefore('#new-chord')
     }
   }
