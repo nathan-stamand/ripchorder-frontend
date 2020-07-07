@@ -4,6 +4,14 @@ class ChordFeeds {
     this.renderFeeds(chordFeedJson)
   }
 
+  last() {
+    return this.chordFeeds[this.chordFeeds.length - 1]
+  }
+
+  lastIsFull() {
+    return this.last().isFull()
+  }
+
   renderFeeds(chordFeedJson) {
     chordFeedJson.forEach(feed => {
       this.chordFeeds.push(new ChordFeed(feed))
