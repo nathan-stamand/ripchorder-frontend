@@ -44,8 +44,9 @@ class Song {
     const text = scribble.getChordsByProgression(`${this.key} ${this.mode}`, `${degree}`).replace('-4', '')
     const chordBtn = document.createElement('button')
     chordBtn.id = degree;
-    chordBtn.class = 'chord';
+    chordBtn.className = 'chord';
     chordBtn.textContent = text;
+    this.addChordListener(chordBtn)
     $(chordBtn).insertBefore('#new-chord')  }
 
   addCustomChords() {
@@ -54,6 +55,8 @@ class Song {
       custChord.id = 'custom-chord';
       custChord.className = 'chord';
       custChord.textContent = chord;
-      $(custChord).insertBefore('#new-chord');    }
+      this.addChordListener(custChord)
+      $(custChord).insertBefore('#new-chord');
+    }
   }
 }
