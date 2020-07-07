@@ -14,10 +14,10 @@ class ChordFeeds {
 
   renderFeeds(chordFeedJson) {
     chordFeedJson.forEach(feed => {
-      this.chordFeeds.push(new ChordFeed(feed))
+      this.chordFeeds.push(new ChordFeed(feed, this))
     });
   }
-  
+
   addEmptyChordFeed() {
     const position = document.getElementById('song-feed-container').childElementCount + 1
     const blankChordFeed = {id: null, position: position, chord_array: null}
@@ -31,7 +31,12 @@ class ChordFeeds {
   
   addChordFeeds() {
     const feedContainer = document.getElementById('song-feed-container')
-    feedContainer.innerHTML = this.chordFeeds.map(feed => 
-      `<div id='${feed.position}' class='feed'>${feed.renderChordArray()}</div>`).join(' ')
+    this.chordFeeds.forEach(feed => {
+      const feedDiv = document.createElement('div')
+      feedDiv.id = feed.position;
+      feedDiv.className = 'feed';
+      feedContainer.appendChild(feedDiv)
+      feed.renderChordArray(feedDiv);
+    })
   }
 }
