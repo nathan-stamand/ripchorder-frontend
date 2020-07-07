@@ -13,6 +13,12 @@ class App {
       }
     }
     this.song = new Song(newSongParams)
-    this.song.display()  
+    this.song.display();
+    this.initBindingsAndListeners();
+  }
+
+  initBindingsAndListeners() {
+    this.playBtn = document.getElementById('play');
+    this.playBtn.addEventListener('click', this.song.play.bind(this.song))
   }
 }
