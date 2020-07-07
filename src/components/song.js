@@ -64,17 +64,16 @@ class Song {
   addChordListener(button) {
     const song = this;
     button.addEventListener('mousedown', function(e) {
+      song.playChord(button)
       if (!song.chordFeeds.lastIsFull()) {
         song.chordFeeds.last().addChordToFeed(button.textContent)
         song.chordFeeds.addChordFeeds()
-        song.playChord(button)
       }
       else {
         if (!song.chordFeeds.full()) {
           song.chordFeeds.addEmptyChordFeed()
           song.chordFeeds.last().addChordToFeed(button.textContent)
           song.chordFeeds.addChordFeeds()
-          song.playChord(button)
         }
       }
     })
