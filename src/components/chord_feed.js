@@ -13,6 +13,7 @@ class ChordFeed {
 
   addChordToFeed(chord) {
     this.chord_array.push(chord)
+    console.log(this.chord_array)
   }
 
   renderChordArray(feedDiv) {
@@ -21,9 +22,17 @@ class ChordFeed {
       const feedChord = document.createElement('div');
       feedChord.className = 'feed-chord';
       feedChord.textContent = chord;
-      feedChord.id = feedDiv.childElementCount
       chordFeed.addFeedChordEventListener(feedChord);
       feedDiv.appendChild(feedChord)
+    })
+  }
+
+  addFeedChordEventListener(feedChord) {
+    const feed = this;
+    feedChord.addEventListener('mousedown', function(e) {
+      feedChord.remove()
+      const feedElem = Array.from(document.getElementById(`${feed.position}`).children)
+      feed.chord_array = feedElem.map(chord => chord.textContent)
     })
   }
 }
