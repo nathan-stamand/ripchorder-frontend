@@ -1,7 +1,7 @@
 class App {
   constructor() {
     this.songs = new Songs;
-    const blankChordFeed = {id: null, position: 1, chord_array: ''}
+    const blankChordFeed = {id: null, position: 1, chord_array: null}
     const newSongParams = {
       id: null, attributes: {
         title: null, 
