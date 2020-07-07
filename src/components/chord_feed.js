@@ -13,7 +13,6 @@ class ChordFeed {
 
   addChordToFeed(chord) {
     this.chord_array.push(chord)
-    console.log(this.chord_array)
   }
 
   renderChordArray(feedDiv) {
