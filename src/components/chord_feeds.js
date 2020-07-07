@@ -17,7 +17,18 @@ class ChordFeeds {
       this.chordFeeds.push(new ChordFeed(feed))
     });
   }
+  
+  addEmptyChordFeed() {
+    const position = document.getElementById('song-feed-container').childElementCount + 1
+    const blankChordFeed = {id: null, position: position, chord_array: null}
+    this.chordFeeds.push(new ChordFeed(blankChordFeed))
+    this.addChordFeeds()
+  }
 
+  full() {
+    return this.chordFeeds.length > 3 ? true : false;
+  }
+  
   addChordFeeds() {
     const feedContainer = document.getElementById('song-feed-container')
     feedContainer.innerHTML = this.chordFeeds.map(feed => 
