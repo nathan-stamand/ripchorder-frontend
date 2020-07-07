@@ -47,7 +47,8 @@ class Song {
     chordBtn.className = 'chord';
     chordBtn.textContent = text;
     this.addChordListener(chordBtn)
-    $(chordBtn).insertBefore('#new-chord')  }
+    $(chordBtn).insertBefore('#new-chord')
+  }
 
   addCustomChords() {
     for (const chord of this.customChords) {
@@ -66,14 +67,29 @@ class Song {
       if (!song.chordFeeds.lastIsFull()) {
         song.chordFeeds.last().addChordToFeed(button.textContent)
         song.chordFeeds.addChordFeeds()
+        song.playChord(button)
       }
       else {
         if (!song.chordFeeds.full()) {
           song.chordFeeds.addEmptyChordFeed()
           song.chordFeeds.last().addChordToFeed(button.textContent)
           song.chordFeeds.addChordFeeds()
+          song.playChord(button)
         }
       }
     })
+  }
+
+  playChord(button) {
+    Tone.start()
+    const notes = scribble.chord(button.textContent)
+    notes.forEach(note => {
+      this.playNote(note)
+    })
+  }
+
+  playNote(note) {
+    const synth = new Tone.Synth().toDestination()
+    synth.triggerAttackRelease(note, '4n')
   }
 }
