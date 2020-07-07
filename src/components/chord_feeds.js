@@ -13,7 +13,6 @@ class ChordFeeds {
   }
 
   refreshFeeds() {
-    this.removeEmptyFeeds()
     $('.feed').remove()
     this.addChordFeeds()
   }
