@@ -12,6 +12,12 @@ class ChordFeeds {
     return this.last().isFull()
   }
 
+  refreshFeeds() {
+    this.removeEmptyFeeds()
+    $('.feed').remove()
+    this.addChordFeeds()
+  }
+
   renderFeeds(chordFeedJson) {
     chordFeedJson.forEach(feed => {
       this.chordFeeds.push(new ChordFeed(feed, this))
