@@ -59,4 +59,21 @@ class Song {
       $(custChord).insertBefore('#new-chord');
     }
   }
+
+  addChordListener(button) {
+    const song = this;
+    button.addEventListener('mousedown', function(e) {
+      if (!song.chordFeeds.lastIsFull()) {
+        song.chordFeeds.last().addChordToFeed(button.textContent)
+        song.chordFeeds.addChordFeeds()
+      }
+      else {
+        if (!song.chordFeeds.full()) {
+          song.chordFeeds.addEmptyChordFeed()
+          song.chordFeeds.last().addChordToFeed(button.textContent)
+          song.chordFeeds.addChordFeeds()
+        }
+      }
+    })
+  }
 }
