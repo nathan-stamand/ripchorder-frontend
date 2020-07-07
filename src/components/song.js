@@ -30,6 +30,7 @@ class Song {
       this.addCustomChords()
     }
     this.chordFeeds.addChordFeeds()
+    this.chordFeeds.refreshFeeds()
   }
 
   renderKeyChords() {
