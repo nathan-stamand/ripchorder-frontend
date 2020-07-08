@@ -27,7 +27,7 @@ class ChordFeeds {
     const position = document.getElementById('song-feed-container').childElementCount + 1
     const blankChordFeed = {id: null, position: position, chord_array: null}
     this.chordFeeds.push(new ChordFeed(blankChordFeed))
-    this.addChordFeeds()
+    this.refreshFeeds()
   }
 
   full() {
