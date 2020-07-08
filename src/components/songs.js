@@ -8,18 +8,18 @@ class Songs {
 
   initBindingsAndEventListeners() {
     this.songsContainer = document.getElementById('songs-container');
+    this.songList = document.getElementById("song-list")
     this.allSongs = document.getElementById('all-songs');
     this.allSongs.addEventListener('click', this.hiderUnhider.bind(this));
     this.showBtns = document.getElementsByClassName('show-button')
-    const instance = this
     for (const btn of this.showBtns) {
-      btn.addEventListener('click', this.showSong.bind(instance, btn.getAttribute('data-song')))
+      btn.addEventListener('click', this.showSong.bind(this, btn.getAttribute('data-song')))
     }
   }
 
   hiderUnhider(e) {
     const songList = document.getElementById("song-list")
-    let symbol = allSongs.getAttribute("data-symbol");
+    let symbol = this.allSongs.getAttribute("data-symbol");
     this.allSongsButtoner(songList, symbol)
   }
 
@@ -59,8 +59,7 @@ class Songs {
   }
 
   render() {
-    const songList = document.getElementById("song-list")
-    songList.innerHTML = this.songs.map(song => song.renderLi()).join('')
+    this.songList.innerHTML = this.songs.map(song => song.renderLi()).join('')
     Song.createShowDeleteButtons()
     this.initBindingsAndEventListeners()
   }
