@@ -18,21 +18,20 @@ class Songs {
   }
 
   hiderUnhider(e) {
-    const allSongs = document.getElementById("all-songs");
     const songList = document.getElementById("song-list")
     let symbol = allSongs.getAttribute("data-symbol");
-    this.allSongsButtoner(allSongs, songList, symbol)
+    this.allSongsButtoner(songList, symbol)
   }
 
-  allSongsButtoner(allSongs, songList, symbol) {
+  allSongsButtoner(songList, symbol) {
     if (symbol === '▷') {
-      allSongs.setAttribute('data-symbol', this.symbolSet['▷'])
-      allSongs.textContent = `${this.symbolSet['▷']} ALL SONGS`
+      this.allSongs.setAttribute('data-symbol', this.symbolSet['▷'])
+      this.allSongs.textContent = `${this.symbolSet['▷']} ALL SONGS`
       songList.hidden = false;
     }
     else {
-      allSongs.setAttribute('data-symbol', this.symbolSet['▽'])
-      allSongs.textContent = `${this.symbolSet['▽']} ALL SONGS`
+      this.allSongs.setAttribute('data-symbol', this.symbolSet['▽'])
+      this.allSongs.textContent = `${this.symbolSet['▽']} ALL SONGS`
       songList.hidden = true;
     }
   }
