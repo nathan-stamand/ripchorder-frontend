@@ -9,6 +9,11 @@ class Song {
     this.chordFeeds = new ChordFeeds(songJson.attributes.chord_feeds);
     this.customChords = songJson.attributes.custom_chords ? songJson.attributes.custom_chords.split(', ') : null;
     this.adapter = new SongAdapter;
+    this.initBindingsandListeners()
+  }
+
+  initBindingsandListeners() {
+    
   }
 
   renderLi() {
@@ -122,8 +127,14 @@ class Song {
     this.chords = Array.from(document.getElementsByClassName('feed-chord'))
     for (let i = 0; i < this.chords.length; i++) {
       const waitTime = $('#tempo option:selected').text()
-      this.playChord(this.chords[i])
-      await this.sleep(60000/waitTime)
+      if (document.getElementsByClassName('feed-chord')[i].getAttribute('status') != 'stop') {
+        console.log('yeah bish')
+        this.playChord(this.chords[i])
+        await this.sleep(60000/waitTime)
+      }
+      else {
+        return
+      }
     }
   }
 
