@@ -31,7 +31,16 @@ class Song {
       this.addCustomChords()
     }
     this.renderTempoKeyMode()
+    this.renderTitle()
     this.chordFeeds.refreshFeeds()
+  }
+
+  renderTitle() {
+    $('h1#title').remove()
+      const title = document.createElement('h1')
+      title.textContent = this.title
+      title.id = 'title'
+      document.body.insertAdjacentElement('afterbegin', title)
   }
 
   renderTempoKeyMode() {
