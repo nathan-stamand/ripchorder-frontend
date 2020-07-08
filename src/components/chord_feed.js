@@ -11,8 +11,11 @@ class ChordFeed {
     return this.chord_array.length > 7 ? true : false;
   }
 
-  addChordToFeed(chord) {
-    this.chord_array.push(chord)
+  addChordToFeed(chordButton) {
+    const chordName = chordButton.textContent;
+    const octave = chordButton.getAttribute('octave')
+    this.chord_array.push(`${chordName}-${octave}`)
+    console.log(this.chord_array)
   }
 
   renderChordArray(feedDiv) {
