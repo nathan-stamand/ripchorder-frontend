@@ -112,6 +112,7 @@ class Song {
   }
 
   playNote(note) {
+    Tone.Transport.bpm.value = $('#tempo option:selected').text();
     const synth = new Tone.Synth().toDestination()
     synth.triggerAttackRelease(note, '4n')
   }
@@ -119,9 +120,8 @@ class Song {
   async play(e) {
     Tone.start()
     this.chords = Array.from(document.getElementsByClassName('feed-chord'))
-    const waitTime = this.tempo
-    console.log(60000/waitTime, this.tempo)
     for (let i = 0; i < this.chords.length; i++) {
+      const waitTime = $('#tempo option:selected').text()
       this.playChord(this.chords[i])
       await this.sleep(60000/waitTime)
     }
