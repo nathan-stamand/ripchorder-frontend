@@ -17,6 +17,7 @@ class App {
     this.initBindingsAndListeners();
     this.populateTempo();
     this.populateKey();
+    this.populateMode();
   }
 
   initBindingsAndListeners() {
@@ -26,15 +27,21 @@ class App {
 
   populateTempo() {
     for (let i = 60; i < 200; i++) {
-      $('#tempo').append(`<option value='${i}'>${i}</option>`)
+      $('#tempo').append(`<option id=${i} value='${i}'>${i}</option>`)
     } 
   }
 
   populateKey() {
-    const notes = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B']
+    const notes = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'F#', 'G', 'Ab', 'A', 'Bb', 'B']
     for (const note of notes) {
-      $('#key').append(`<option value='${note}'>${note}</option>`)
+      $('#key').append(`<option id=${note} value='${note}'>${note}</option>`)
     }
   }
 
+  populateMode() {
+    const modes = ['major', 'minor']
+    for (const mode of modes) {
+      $('#mode').append(`<option id=${mode} value='${mode}'>${mode}</option>`)
+    }
+  }
 }
