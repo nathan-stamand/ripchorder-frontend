@@ -5,6 +5,7 @@ class Song {
     this.key = songJson.attributes.key;
     this.mode = songJson.attributes.mode;
     this.tempo = songJson.attributes.tempo;
+    console.log(this.tempo)
     this.chordFeeds = new ChordFeeds(songJson.attributes.chord_feeds);
     this.customChords = songJson.attributes.custom_chords ? songJson.attributes.custom_chords.split(', ') : null;
     this.adapter = new SongAdapter;
@@ -29,8 +30,16 @@ class Song {
     if (this.customChords) {
       this.addCustomChords()
     }
-    this.chordFeeds.addChordFeeds()
+    this.renderTempoKeyMode()
     this.chordFeeds.refreshFeeds()
+  }
+
+  renderTempoKeyMode() {
+    $(document).ready(() => {
+      $(`select#tempo option[value='${this.tempo}']`).prop('selected', true)
+      $(`select#key option[value='${this.key}']`).prop('selected', true)
+      $(`select#mode option[value='${this.mode}']`).prop('selected', true)
+    })
   }
 
   renderKeyChords() {
@@ -42,11 +51,12 @@ class Song {
   }
 
   addChord(degree) {
-    const text = scribble.getChordsByProgression(`${this.key} ${this.mode}`, `${degree}`).replace('-4', '')
+    const chord = scribble.getChordsByProgression(`${this.key} ${this.mode}`, `${degree}`).split('-');
     const chordBtn = document.createElement('button')
     chordBtn.id = degree;
     chordBtn.className = 'chord';
-    chordBtn.textContent = text;
+    chordBtn.setAttribute('octave', `${chord[1]}`)
+    chordBtn.textContent = chord[0];
     this.addChordListener(chordBtn)
     $(chordBtn).insertBefore('#new-chord')
   }
@@ -56,6 +66,7 @@ class Song {
       const custChord = document.createElement('button');
       custChord.id = 'custom-chord';
       custChord.className = 'chord';
+      custChord.setAttribute('octave', '4')
       custChord.textContent = chord;
       this.addChordListener(custChord)
       $(custChord).insertBefore('#new-chord');
@@ -68,13 +79,13 @@ class Song {
       song.playChord(button)
       if (!song.chordFeeds.lastIsFull()) {
         const lastFeed = song.chordFeeds.last()
-        lastFeed.addChordToFeed(button.textContent)
+        lastFeed.addChordToFeed(button)
       }
       else {
         if (!song.chordFeeds.full()) {
           song.chordFeeds.addEmptyChordFeed()
           const lastFeed = song.chordFeeds.last()
-          lastFeed.addChordToFeed(button.textContent)
+          lastFeed.addChordToFeed(button)
         }
       }
       song.chordFeeds.refreshFeeds()
@@ -83,7 +94,9 @@ class Song {
 
   playChord(button) {
     Tone.start()
-    const notes = scribble.chord(button.textContent)
+    const note = button.textContent;
+    const octave = button.getAttribute('octave')
+    const notes = scribble.chord(`${note}-${octave}`)
     notes.forEach(note => {
       this.playNote(note)
     })
