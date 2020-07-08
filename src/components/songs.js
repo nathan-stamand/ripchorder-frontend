@@ -3,12 +3,12 @@ class Songs {
     this.adapter = new SongsAdapter;
     this.songs = [];
     this.symbolSet = {'▷': '▽', '▽': '▷'};
+    this.songList = document.getElementById("song-list")
     this.fetchAndLoadSongs();
   }
 
   initBindingsAndEventListeners() {
     this.songsContainer = document.getElementById('songs-container');
-    this.songList = document.getElementById("song-list")
     this.allSongs = document.getElementById('all-songs');
     this.allSongs.addEventListener('click', this.hiderUnhider.bind(this));
     this.showBtns = document.getElementsByClassName('show-button')
