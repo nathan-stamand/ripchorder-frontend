@@ -39,7 +39,15 @@ class Songs {
 
   showSong(id) {
     const song = this.songs.find(song => song.id === id)
+    this.liHider(song)
     song.display()
+  }
+
+  liHider(song) {
+    const songList = $(`ul#song-list`).children().toArray()
+    for (const li of songList) {
+      li.id === song.id ? li.hidden = true : li.hidden = false;
+    }
   }
 
   fetchAndLoadSongs() {
