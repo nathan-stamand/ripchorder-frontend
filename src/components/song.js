@@ -9,11 +9,6 @@ class Song {
     this.chordFeeds = new ChordFeeds(songJson.attributes.chord_feeds);
     this.customChords = songJson.attributes.custom_chords ? songJson.attributes.custom_chords.split(', ') : null;
     this.adapter = new SongAdapter;
-    this.initBindingsandListeners()
-  }
-
-  initBindingsandListeners() {
-    
   }
 
   renderLi() {
@@ -124,12 +119,12 @@ class Song {
 
   async play(e) {
     Tone.start()
-    this.chords = Array.from(document.getElementsByClassName('feed-chord'))
-    for (let i = 0; i < this.chords.length; i++) {
+    const chords = Array.from(document.getElementsByClassName('feed-chord'))
+    for (let i = 0; i < chords.length; i++) {
       const waitTime = $('#tempo option:selected').text()
-      if (document.getElementsByClassName('feed-chord')[i].getAttribute('status') != 'stop') {
-        console.log('yeah bish')
-        this.playChord(this.chords[i])
+      const status = document.getElementById('song-feed-container').getAttribute('status');
+      if (status === 'play') {
+        this.playChord(chords[i])
         await this.sleep(60000/waitTime)
       }
       else {
@@ -140,5 +135,11 @@ class Song {
 
   sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  async addStopStatus() {
+    $('#song-feed-container').attr('status', 'stop')
+    await this.sleep(500)
+    $('#song-feed-container').attr('status', 'play')
   }
 }
