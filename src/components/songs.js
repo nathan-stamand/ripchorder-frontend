@@ -2,6 +2,7 @@ class Songs {
   constructor() {
     this.adapter = new SongsAdapter;
     this.songs = [];
+    this.symbolSet = {'▷': '▽', '▽': '▷'};
     this.fetchAndLoadSongs();
   }
 
@@ -24,15 +25,14 @@ class Songs {
   }
 
   allSongsButtoner(allSongs, songList, symbol) {
-    const symbolSet = {'▷': '▽', '▽': '▷'}
     if (symbol === '▷') {
-      allSongs.setAttribute('data-symbol', symbolSet['▷'])
-      allSongs.textContent = `${symbolSet['▷']} ALL SONGS`
+      allSongs.setAttribute('data-symbol', this.symbolSet['▷'])
+      allSongs.textContent = `${this.symbolSet['▷']} ALL SONGS`
       songList.hidden = false;
     }
     else {
-      allSongs.setAttribute('data-symbol', symbolSet['▽'])
-      allSongs.textContent = `${symbolSet['▽']} ALL SONGS`
+      allSongs.setAttribute('data-symbol', this.symbolSet['▽'])
+      allSongs.textContent = `${this.symbolSet['▽']} ALL SONGS`
       songList.hidden = true;
     }
   }
