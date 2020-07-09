@@ -5,7 +5,6 @@ class Song {
     this.key = songJson.attributes.key;
     this.mode = songJson.attributes.mode;
     this.tempo = songJson.attributes.tempo;
-    console.log(this.tempo)
     this.chordFeeds = new ChordFeeds(songJson.attributes.chord_feeds);
     this.customChords = songJson.attributes.custom_chords ? songJson.attributes.custom_chords.split(', ') : null;
     this.adapter = new SongAdapter;
@@ -84,8 +83,7 @@ class Song {
   addCustomChords() {
     for (const chord of this.customChords) {
       const custChord = document.createElement('button');
-      custChord.id = 'custom-chord';
-      custChord.className = 'chord';
+      custChord.className = 'custom chord';
       custChord.setAttribute('octave', '4')
       custChord.textContent = chord;
       this.addChordListener(custChord)
