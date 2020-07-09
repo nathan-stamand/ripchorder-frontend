@@ -167,4 +167,12 @@ class Song {
     $('#song-feed-container').attr('status', 'play')
     this.refreshStartChord()
   }
+
+  refreshStartChord() {
+    let chords = this.chordsForPlay()
+    let startChords = chords.filter(chord => chord.getAttribute('start-chord') === 'start')
+    if (startChords.length > 1) {
+      startChords[0].setAttribute('start-chord', 'false')
+    }
+  }
 }
