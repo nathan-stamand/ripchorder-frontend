@@ -1,17 +1,8 @@
 class ChordFeeds {
-  constructor(chordFeedJson) {
+  constructor(chordFeedJson, songId) {
     this.chordFeeds = [];
+    this.songId = songId
     this.renderFeeds(chordFeedJson)
-  }
-
-  variables(songId) {
-    const rawFeeds = $('#song-feed-container').children().toArray()
-    const feeds = rawFeeds.map(feed => {
-      const chords = Array.from(feed.children)
-      const chordArray = chords.map(chord => `${chord.textContent}`).join(', ')
-      return {position: `${feed.id}`, chord_array: `${chordArray}`, song_id: `${songId}`}
-    });
-    return {chord_feeds: feeds}
   }
 
   last() {
@@ -35,7 +26,7 @@ class ChordFeeds {
 
   addEmptyChordFeed() {
     const position = document.getElementById('song-feed-container').childElementCount + 1
-    const blankChordFeed = {id: null, position: position, chord_array: null}
+    const blankChordFeed = {id: null, position: position, chord_array: '', song_id: this.songId}
     this.chordFeeds.push(new ChordFeed(blankChordFeed))
     this.refreshFeeds()
   }
