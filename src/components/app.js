@@ -27,6 +27,8 @@ class App {
     this.stopBtn.addEventListener('click', this.song.addStopStatus.bind(this.song))
     this.pauseBtn = $('#pause')[0]
     this.pauseBtn.addEventListener('click', this.song.addPauseStatus.bind(this.song))
+    this.saveBtn = $('#save')[0]
+    this.saveBtn.addEventListener('click', this.song.fetchAndSaveSong.bind(this.song))
   }
 
   populateTempo() {
