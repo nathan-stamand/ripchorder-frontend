@@ -35,12 +35,23 @@ class Song {
     this.chordFeeds.refreshFeeds()
   }
 
+  fetchAndSaveSong() {
+    const id = $('h1').attr('id')
+    if (id != 'null') {
+      this.adapter.saveSong(id)
+    }
+    else {
+      this.adapter.createSong()
+    }
+  }
+
   renderTitle() {
-    $('h1#title').remove()
-      const title = document.createElement('h1')
-      title.textContent = this.title
-      title.id = 'title'
-      document.body.insertAdjacentElement('afterbegin', title)
+    $('h1').remove()
+    const title = document.createElement('h1')
+    title.textContent = this.title
+    title.id = this.id
+    document.body.insertAdjacentElement('afterbegin', title)
+    $('#new-title').attr('value', title.textContent)
   }
 
   renderTempoKeyMode() {
