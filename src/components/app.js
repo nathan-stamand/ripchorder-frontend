@@ -4,7 +4,7 @@ class App {
     const blankChordFeed = {id: null, position: 1, chord_array: null}
     const newSongParams = {
       id: null, attributes: {
-        title: null, 
+        title: 'New Song', 
         key: 'C', 
         mode: 'major', 
         tempo: 120, 
