@@ -1,10 +1,10 @@
 class SongAdapter {
   constructor() {
-    this.baseUrl = 'http://localhost:3000/songs/';
+    this.baseUrl = 'http://localhost:3000/songs';
     this.variables.bind(this)
   }
 
-  variables() {
+  variables(chordFeeds) {
     const tempo = $('#tempo option:selected').text()
     const key = $('#key option:selected').text()
     const mode = $('#mode option:selected').text()
@@ -12,22 +12,22 @@ class SongAdapter {
     const custMap = $('.custom.chord').toArray().map(chord => {
       return `${chord.textContent}-${chord.getAttribute('octave')}`
     }).join(', ');
-    return `{tempo: '${tempo}', key: '${key}', mode: '${mode}', title: '${newTitle}', custom_chords: '${custMap}'}`
+    return {song: {tempo: `${tempo}`, key: `${key}`, mode: `${mode}`, title: `${newTitle}`, custom_chords: `${custMap}`, chord_feeds: {chordFeeds}}}
   }
 
-  createSong() {
-    const songBody = this.variables()
+  createSong(chordFeeds) {
     const songObject = {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(songBody)
+      body: JSON.stringify(this.variables(chordFeeds))
     }
+    return fetch(this.baseUrl, songObject).then(res => res.json())
   }
 
-  saveSong() {
+  saveSong(chordFeedsVar) {
 
   }
 }
