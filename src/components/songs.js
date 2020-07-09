@@ -1,7 +1,8 @@
 class Songs {
-  constructor() {
+  constructor(app) {
     this.adapter = new SongsAdapter;
     this.songs = [];
+    this.app = app
     this.symbolSet = {'▷': '▽', '▽': '▷'};
     this.songList = document.getElementById("song-list")
     this.fetchAndLoadSongs();
@@ -37,7 +38,8 @@ class Songs {
 
   showSong(id) {
     const song = this.songs.find(song => song.id === id)
-    this.liHider(song)
+    this.liHider(song);
+    this.app.song = song;
     song.display()
   }
 
@@ -61,5 +63,17 @@ class Songs {
     this.songList.innerHTML = this.songs.map(song => song.renderLi()).join('')
     Song.createShowDeleteButtons()
     this.initBindingsAndEventListeners()
+  }
+
+  fetchCreateSong() {
+    return this.adapter.createSong().then(song => {
+      const newSong = new Song(song.data)
+      this.songs.push(newSong)
+      return newSong
+    })
+    .then((res) => {
+      this.app = res
+      res.display()
+    })
   }
 }
