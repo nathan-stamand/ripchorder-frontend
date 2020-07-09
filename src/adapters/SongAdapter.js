@@ -12,22 +12,18 @@ class SongAdapter {
     const custMap = $('.custom.chord').toArray().map(chord => {
       return `${chord.textContent}-${chord.getAttribute('octave')}`
     }).join(', ');
-    return {song: {tempo: `${tempo}`, key: `${key}`, mode: `${mode}`, title: `${newTitle}`, custom_chords: `${custMap}`, chord_feeds: {chordFeeds}}}
+    return {song: {tempo: `${tempo}`, key: `${key}`, mode: `${mode}`, title: `${newTitle}`, custom_chords: `${custMap}`, chord_feeds: `${chordFeeds}`}}
   }
 
-  createSong(chordFeeds) {
+  createSong(chordFeedsVar) {
     const songObject = {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(this.variables(chordFeeds))
+      body: JSON.stringify(this.variables(chordFeedsVar))
     }
     return fetch(this.baseUrl, songObject).then(res => res.json())
-  }
-
-  saveSong(chordFeedsVar) {
-
   }
 }
