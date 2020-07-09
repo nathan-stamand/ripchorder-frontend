@@ -1,6 +1,7 @@
 class SongAdapter {
   constructor() {
     this.baseUrl = 'http://localhost:3000/songs/';
+    this.variables.bind(this)
   }
 
   variables() {
@@ -15,7 +16,15 @@ class SongAdapter {
   }
 
   createSong() {
-
+    const songBody = this.variables()
+    const songObject = {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(songBody)
+    }
   }
 
   saveSong() {
