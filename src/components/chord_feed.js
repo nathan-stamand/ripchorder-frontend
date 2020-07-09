@@ -1,10 +1,9 @@
 class ChordFeed {
-  constructor(feedJson, parent) {
+  constructor(feedJson) {
     this.id = feedJson.id;
     this.position = feedJson.position;
     this.chord_array = feedJson.chord_array ? feedJson.chord_array.split(', ') : [];
     this.song_id = feedJson.song_id;
-    this.parent = parent;
   }
 
   isFull() {
