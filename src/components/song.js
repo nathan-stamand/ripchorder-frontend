@@ -119,16 +119,24 @@ class Song {
 
   async play(e) {
     Tone.start()
-    const chords = Array.from(document.getElementsByClassName('feed-chord'))
+    const chords = this.chordsForPlay()
     for (let i = 0; i < chords.length; i++) {
-      const waitTime = $('#tempo option:selected').text()
+      this.waitTime = 60000/$('#tempo option:selected').text()
       const status = document.getElementById('song-feed-container').getAttribute('status');
-      if (status === 'play') {
+      switch(status) {
+        case 'play':
+        if (i === chords.length - 1) {
+          this.chordFeeds.refreshFeeds()
+        }
         this.playChord(chords[i])
-        await this.sleep(60000/waitTime)
-      }
-      else {
-        return
+        await this.sleep(this.waitTime)
+      break;
+      case 'pause':
+        chords[i].setAttribute('start-chord', 'start')
+        this.addPauseStatus()
+        return;
+      default:
+        return;
       }
     }
   }
@@ -139,7 +147,8 @@ class Song {
 
   async addStopStatus() {
     $('#song-feed-container').attr('status', 'stop')
-    await this.sleep(500)
+    await this.sleep(this.waitTime)
     $('#song-feed-container').attr('status', 'play')
+    this.chordFeeds.refreshFeeds()
   }
 }
