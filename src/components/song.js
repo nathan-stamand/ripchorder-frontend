@@ -160,4 +160,11 @@ class Song {
     }
     return chords;
   }
+
+  async addPauseStatus() {
+    $('#song-feed-container').attr('status', 'pause')
+    await this.sleep(this.waitTime)
+    $('#song-feed-container').attr('status', 'play')
+    this.refreshStartChord()
+  }
 }
