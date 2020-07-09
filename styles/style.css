@@ -99,3 +99,7 @@ div#control-panel button {
   height: 5rem;
   width: 5rem;
 }
+
+#control-panel button {
+  font-size: large;
+}
