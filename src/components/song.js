@@ -151,4 +151,13 @@ class Song {
     $('#song-feed-container').attr('status', 'play')
     this.chordFeeds.refreshFeeds()
   }
+
+  chordsForPlay() {
+    let chords = $('div.feed-chord').toArray()
+    const startChord = chords.findIndex(chord => chord.getAttribute('start-chord') === 'start')
+    if (startChord > 0) {
+      chords = chords.slice(startChord)
+    }
+    return chords;
+  }
 }
