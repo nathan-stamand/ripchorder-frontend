@@ -25,6 +25,8 @@ class App {
     this.playBtn.addEventListener('click', this.song.play.bind(this.song))
     this.stopBtn = $('#stop')[0]
     this.stopBtn.addEventListener('click', this.song.addStopStatus.bind(this.song))
+    this.pauseBtn = $('#pause')[0]
+    this.pauseBtn.addEventListener('click', this.song.addPauseStatus.bind(this.song))
   }
 
   populateTempo() {
