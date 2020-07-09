@@ -72,7 +72,7 @@ class Songs {
       return newSong
     })
     .then((res) => {
-      this.app = res
+      this.app.song = res
       res.display()
     })
   }
