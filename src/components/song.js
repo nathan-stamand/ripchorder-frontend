@@ -35,12 +35,15 @@ class Song {
   }
 
   fetchAndSaveSong() {
-    const id = $('h1').attr('id')
+    let id = $('h1').attr('id')
     if (id != 'null') {
-      this.adapter.saveSong(id)
+      let chordFeedVar = this.chordFeeds.variables(id)
+      this.adapter.saveSong(chordFeedVar)
     }
     else {
-      this.adapter.createSong()
+      id = this.adapter.createSong('').then(res => res.data.id)
+      let chordFeedVar = this.chordFeeds.variables(id)
+      this.adapter.saveSong(chordFeedVar)
     }
   }
 
