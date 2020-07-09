@@ -1,8 +1,6 @@
 class ControlPanel {
   constructor(app) {
     this.app = app;
-    this.song = app.song;
-    this.initBindingsAndListeners();
     this.populateTempo();
     this.populateKey();
     this.populateMode();
@@ -10,13 +8,13 @@ class ControlPanel {
   
   initBindingsAndListeners() {
     this.playBtn = document.getElementById('play');
-    this.playBtn.addEventListener('click', this.song.play.bind(this.song))
+    this.playBtn.addEventListener('click', this.play.bind(this))
     this.stopBtn = $('#stop')[0]
-    this.stopBtn.addEventListener('click', this.song.addStopStatus.bind(this.song))
+    this.stopBtn.addEventListener('click', this.addStopStatus.bind(this))
     this.pauseBtn = $('#pause')[0]
-    this.pauseBtn.addEventListener('click', this.song.addPauseStatus.bind(this.song))
+    this.pauseBtn.addEventListener('click', this.addPauseStatus.bind(this))
     this.saveBtn = $('#save')[0]
-    this.saveBtn.addEventListener('click', this.song.fetchAndSaveSong.bind(this.song))
+    // this.saveBtn.addEventListener('click', this.fetchAndSaveSong.bind(this))
   }
 
   populateTempo() {
@@ -38,4 +36,79 @@ class ControlPanel {
       $('#mode').append(`<option id=${mode} value='${mode}'>${mode}</option>`)
     }
   }
+  playChord(button) {
+    Tone.start()
+    const note = button.textContent;
+    const octave = button.getAttribute('octave')
+    const notes = scribble.chord(`${note}-${octave}`)
+    notes.forEach(note => {
+      this.playNote(note)
+    })
+  }
+
+  playNote(note) {
+    Tone.Transport.bpm.value = $('#tempo option:selected').text();
+    const synth = new Tone.Synth().toDestination()
+    synth.triggerAttackRelease(note, '4n')
+  }
+
+  async play(e) {
+    Tone.start()
+    const chords = this.chordsForPlay()
+    for (let i = 0; i < chords.length; i++) {
+      this.waitTime = 60000/$('#tempo option:selected').text()
+      const status = document.getElementById('song-feed-container').getAttribute('status');
+      switch(status) {
+        case 'play':
+        if (i === chords.length - 1) {
+          this.chordFeeds.refreshFeeds()
+        }
+        this.playChord(chords[i])
+        await this.sleep(this.waitTime)
+      break;
+      case 'pause':
+        chords[i].setAttribute('start-chord', 'start')
+        this.addPauseStatus()
+        return;
+      default:
+        return;
+      }
+    }
+  }
+
+  sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  async addStopStatus() {
+    $('#song-feed-container').attr('status', 'stop')
+    await this.sleep(this.waitTime)
+    $('#song-feed-container').attr('status', 'play')
+    this.chordFeeds.refreshFeeds()
+  }
+
+  chordsForPlay() {
+    let chords = $('div.feed-chord').toArray()
+    const startChord = chords.findIndex(chord => chord.getAttribute('start-chord') === 'start')
+    if (startChord > 0) {
+      chords = chords.slice(startChord)
+    }
+    return chords;
+  }
+
+  async addPauseStatus() {
+    $('#song-feed-container').attr('status', 'pause')
+    await this.sleep(this.waitTime)
+    $('#song-feed-container').attr('status', 'play')
+    this.refreshStartChord()
+  }
+
+  refreshStartChord() {
+    let chords = this.chordsForPlay()
+    let startChords = chords.filter(chord => chord.getAttribute('start-chord') === 'start')
+    if (startChords.length > 1) {
+      startChords[0].setAttribute('start-chord', 'false')
+    }
+  }
+
 }
