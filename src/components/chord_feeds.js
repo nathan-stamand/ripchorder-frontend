@@ -4,6 +4,16 @@ class ChordFeeds {
     this.renderFeeds(chordFeedJson)
   }
 
+  variables(songId) {
+    const rawFeeds = $('#song-feed-container').children().toArray()
+    const feeds = rawFeeds.map(feed => {
+      const chords = Array.from(feed.children)
+      const chordArray = chords.map(chord => `${chord.textContent}`).join(', ')
+      return {position: `${feed.id}`, chord_array: `${chordArray}`, song_id: `${songId}`}
+    });
+    return {chord_feeds: feeds}
+  }
+
   last() {
     return this.chordFeeds[this.chordFeeds.length - 1]
   }
