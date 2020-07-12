@@ -12,22 +12,16 @@ class ChordContainer {
     this.ChordContainer.innerHTML = `${rest}${newChord}`
   }
 
+  addFeed() {
+    const position = document.getElementById('song-feed-container').childElementCount + 1
+    const newFeed = `<div id="${position}" class="feed"></div>`
+    $('div#song-feed-container').append(newFeed)
+    }
+
   addChordListener(button) {
-    const song = this;
+    const chordContainer = this;
     button.addEventListener('mousedown', function(e) {
-      song.playChord(button)
-      if (!song.chordFeeds.lastIsFull()) {
-        const lastFeed = song.chordFeeds.last()
-        lastFeed.addChordToFeed(button)
-      }
-      else {
-        if (!song.chordFeeds.full()) {
-          song.chordFeeds.addEmptyChordFeed()
-          const lastFeed = song.chordFeeds.last()
-          lastFeed.addChordToFeed(button)
-        }
-      }
-      song.chordFeeds.refreshFeeds()
+      chordContainer.playChord(button)
     })
   }
 
