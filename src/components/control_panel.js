@@ -17,13 +17,17 @@ class ControlPanel {
     this.saveBtn = $('#save')[0]
     // this.saveBtn.addEventListener('click', this.fetchAndSaveSong.bind(this))
     this.clearBtn = $('#clear')[0]
-    this.clearBtn.addEventListener('click', this.clearFeeds.bind(this))
+    this.clearBtn.addEventListener('click', this.clearSongDisplay.bind(this))
     this.newBtn = $('#new')[0]
     this.newBtn.addEventListener('click', this.createNewSong.bind(this))
   }
 
-  clearFeeds() {
-    console.log($('.feed').remove())
+  clearSongDisplay() {
+    this.song = null;
+    $('#chords-container').html("Click 'NEW' to create and load a new Song!")
+    $('h1').remove()
+    $('feed').remove()
+    $('li').attr('hidden', false)
   }
 
   createNewSong() {
