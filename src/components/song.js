@@ -8,7 +8,7 @@ class Song {
     this.chordFeeds = new ChordFeeds(songJson.attributes.chord_feeds);
     this.customChords = songJson.attributes.custom_chords ? songJson.attributes.custom_chords.split(', ') : null;
     this.adapter = new SongAdapter;
-    this.chordContainer = new ChordContainer(this.key, this.customChords)
+    this.chordContainer = new ChordContainer(this.key, this.mode, this.customChords)
   }
 
   renderLi() {
@@ -25,11 +25,15 @@ class Song {
     }
   }
 
-  display() {
-    this.renderKeyChords()
+  renderChords() {
+    this.chordContainer.renderKeyChords()
     if (this.customChords) {
-      this.addCustomChords()
+      this.chordContainer.addCustomChords()
     }
+  }
+
+  display() {
+    this.renderChords()
     this.renderTempoKeyMode()
     this.renderTitle()
     this.chordFeeds.refreshFeeds()
