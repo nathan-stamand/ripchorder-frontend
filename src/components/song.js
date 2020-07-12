@@ -51,34 +51,4 @@ class Song {
       $(`select#mode option[value='${this.mode}']`).prop('selected', true)
     })
   }
-
-  renderKeyChords() {
-    $('.chord').remove()
-    const chordDegrees = scribble.getChordDegrees(`${this.mode}`)
-    chordDegrees.forEach(degree => {
-      this.addChord(degree)
-    })
-  }
-
-  addChord(degree) {
-    const chord = scribble.getChordsByProgression(`${this.key} ${this.mode}`, `${degree}`).split('-');
-    const chordBtn = document.createElement('button')
-    chordBtn.id = degree;
-    chordBtn.className = 'chord';
-    chordBtn.setAttribute('octave', `${chord[1]}`)
-    chordBtn.textContent = chord[0];
-    this.addChordListener(chordBtn)
-    $(chordBtn).insertBefore('#new-chord')
-  }
-
-  addCustomChords() {
-    for (const chord of this.customChords) {
-      const custChord = document.createElement('button');
-      custChord.className = 'custom chord';
-      custChord.setAttribute('octave', '4')
-      custChord.textContent = chord;
-      this.addChordListener(custChord)
-      $(custChord).insertBefore('#new-chord');
-    }
-  }
 }
