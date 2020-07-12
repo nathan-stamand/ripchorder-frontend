@@ -60,7 +60,7 @@ class Songs {
 
   render() {
     this.songList.innerHTML = this.songs.map(song => song.renderLi()).join('')
-    Song.createShowDeleteButtons()
+    this.createShowDeleteButtons()
   }
 
   createShowDeleteButtons() {
