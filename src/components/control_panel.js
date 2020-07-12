@@ -19,7 +19,7 @@ class ControlPanel {
     this.clearBtn = $('#clear')[0]
     this.clearBtn.addEventListener('click', this.clearFeeds.bind(this))
     this.newBtn = $('#new')[0]
-    this.newBtn.addEventListener('click', this.createNewSong.bind(this.app))
+    this.newBtn.addEventListener('click', this.createNewSong.bind(this))
   }
 
   clearFeeds() {
