@@ -17,6 +17,10 @@ class Songs {
     for (const btn of this.showBtns) {
       btn.addEventListener('click', this.showSong.bind(this, btn.getAttribute('data-song')))
     }
+    this.deleteBtns = $('.delete-button').toArray()
+    for (const btn of this.deleteBtns) {
+      btn.addEventListener('click', this.fetchDeleteSong.bind(this, btn.getAttribute('data-song')))
+    }
   }
 
   hiderUnhider(e) {
@@ -75,5 +79,9 @@ class Songs {
     .then((res) => {
       this.showSong(res.id)
     })
+  }
+
+  fetchDeleteSong() {
+    console.log('delete!')
   }
 }
