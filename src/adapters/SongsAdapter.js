@@ -22,4 +22,17 @@ class SongsAdapter {
     }
     return fetch(this.baseUrl, songObject).then(res => res.json())
   }
+
+  deleteSong(id) {
+    const songObj = {
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({id: id})
+    }
+    return fetch(this.baseUrl + `/${id}`, songObj)
+      .then(res => res.json())
+  }
 }
