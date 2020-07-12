@@ -22,11 +22,13 @@ class ChordContainer {
     const chordContainer = this;
     button.addEventListener('mousedown', function(e) {
       chordContainer.playChord(button)
+      if ($('#song-feed-container').children().toArray().length < 1) {
+        chordContainer.addFeed()
+      }
     })
   }
 
   addChord(degree) {
-    console.log(this.ChordContainer)
     const chord = scribble.getChordsByProgression(`${this.key} ${this.mode}`, `${degree}`).split('-');
     const chordBtn = document.createElement('button')
     chordBtn.id = degree;
