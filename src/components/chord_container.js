@@ -1,6 +1,7 @@
 class ChordContainer {
-  constructor(key, customChords) {
+  constructor(key, mode, customChords) {
     this.key = key;
+    this.mode = mode
     this.customChords = customChords;
   }
 
@@ -30,6 +31,7 @@ class ChordContainer {
     chordBtn.className = 'chord';
     chordBtn.setAttribute('octave', `${chord[1]}`)
     chordBtn.textContent = chord[0];
+    this.addChordListener(chordBtn)
     $(chordBtn).insertBefore('#new-chord')
   }
 
@@ -50,5 +52,21 @@ class ChordContainer {
     chordDegrees.forEach(degree => {
       this.addChord(degree)
     })
+  }
+
+  playChord(button) {
+    Tone.start()
+    const note = button.textContent;
+    const octave = button.getAttribute('octave')
+    const notes = scribble.chord(`${note}-${octave}`)
+    notes.forEach(note => {
+      this.playNote(note)
+    })
+  }
+
+  playNote(note) {
+    Tone.Transport.bpm.value = $('#tempo option:selected').text();
+    const synth = new Tone.Synth().toDestination()
+    synth.triggerAttackRelease(note, '4n')
   }
 }
