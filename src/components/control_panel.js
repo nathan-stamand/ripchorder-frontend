@@ -36,6 +36,7 @@ class ControlPanel {
       $('#mode').append(`<option id=${mode} value='${mode}'>${mode}</option>`)
     }
   }
+
   playChord(button) {
     Tone.start()
     const note = button.textContent;
