@@ -3,6 +3,13 @@ class ChordContainer {
     this.key = key;
     this.mode = mode
     this.customChords = customChords;
+    this.ChordContainer = $('#chords-container')[0]
+  }
+
+  renderRestAndNewChord() {
+    const rest = '<button id="rest" class="non-chord">REST.</button>'
+    const newChord = '<button id="new-chord" class="non-chord">+</button>'
+    this.ChordContainer.innerHTML = `${rest}${newChord}`
   }
 
   addChordListener(button) {
@@ -25,6 +32,7 @@ class ChordContainer {
   }
 
   addChord(degree) {
+    console.log(this.ChordContainer)
     const chord = scribble.getChordsByProgression(`${this.key} ${this.mode}`, `${degree}`).split('-');
     const chordBtn = document.createElement('button')
     chordBtn.id = degree;
@@ -47,6 +55,7 @@ class ChordContainer {
   }
 
   renderKeyChords() {
+    this.renderRestAndNewChord()
     $('.chord').remove()
     const chordDegrees = scribble.getChordDegrees(`${this.mode}`)
     chordDegrees.forEach(degree => {
