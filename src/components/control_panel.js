@@ -4,6 +4,7 @@ class ControlPanel {
     this.populateTempo();
     this.populateKey();
     this.populateMode();
+    this.initBindingsAndListeners()
   }
   
   initBindingsAndListeners() {
@@ -62,7 +63,7 @@ class ControlPanel {
       switch(status) {
         case 'play':
         if (i === chords.length - 1) {
-          this.chordFeeds.refreshFeeds()
+          this.clearStartChords()
         }
         this.playChord(chords[i])
         await this.sleep(this.waitTime)
@@ -85,8 +86,8 @@ class ControlPanel {
     $('#song-feed-container').attr('status', 'stop')
     await this.sleep(this.waitTime)
     $('#song-feed-container').attr('status', 'play')
-    this.chordFeeds.refreshFeeds()
-  }
+    this.clearStartChords()
+}
 
   chordsForPlay() {
     let chords = $('div.feed-chord').toArray()
@@ -112,4 +113,7 @@ class ControlPanel {
     }
   }
 
+  clearStartChords() {
+    $('.feed-chord[start-chord="start"').attr('start-chord', 'false')
+  }
 }
