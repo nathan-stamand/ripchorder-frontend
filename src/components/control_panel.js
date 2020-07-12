@@ -16,6 +16,19 @@ class ControlPanel {
     this.pauseBtn.addEventListener('click', this.addPauseStatus.bind(this))
     this.saveBtn = $('#save')[0]
     // this.saveBtn.addEventListener('click', this.fetchAndSaveSong.bind(this))
+    this.clearBtn = $('#clear')[0]
+    this.clearBtn.addEventListener('click', this.clearFeeds.bind(this))
+    this.newBtn = $('#new')[0]
+    this.newBtn.addEventListener('click', this.createNewSong.bind(this.app))
+  }
+
+  clearFeeds() {
+    console.log($('.feed').remove())
+  }
+
+  createNewSong() {
+    const songs = this.songs
+    songs.fetchCreateSong()
   }
 
   populateTempo() {
