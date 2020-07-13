@@ -62,9 +62,17 @@ class ChordContainer {
 
   initBindingsAndEventListeners() {
     this.keySelect = $('#key')[0]
-    this.keySelect.addEventListener('change', () => console.log(this.keySelect.value))
+    this.keySelect.addEventListener('change', this.updateKeyChords.bind(this))
     this.modeSelect = $('#mode')[0]
-    this.modeSelect.addEventListener('change', () => console.log(this.modeSelect.value))
+    this.modeSelect.addEventListener('change', this.updateKeyChords.bind(this))
+  }
+
+  updateKeyChords() {
+    const newKey = $('#key').val()
+    const newMode = $('#mode').val()
+    this.key = newKey;
+    this.mode = newMode;
+    this.renderKeyChords()
   }
 
   playChord(button) {
