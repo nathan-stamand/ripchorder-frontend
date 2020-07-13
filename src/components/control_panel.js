@@ -1,6 +1,7 @@
 class ControlPanel {
   constructor(app) {
     this.app = app;
+    this.song = null;
     this.populateTempo();
     this.populateKey();
     this.populateMode();
@@ -15,13 +16,19 @@ class ControlPanel {
     this.pauseBtn = $('#pause')[0]
     this.pauseBtn.addEventListener('click', this.addPauseStatus.bind(this))
     this.saveBtn = $('#save')[0]
-    // this.saveBtn.addEventListener('click', this.fetchAndSaveSong.bind(this))
+    this.saveBtn.addEventListener('click', () => this.checkForSongAndSave())
     this.clearBtn = $('#clear')[0]
     this.clearBtn.addEventListener('click', this.clearSongDisplay.bind(this))
     this.newBtn = $('#new')[0]
     this.newBtn.addEventListener('click', this.createNewSong.bind(this))
     this.titleInput = $('#new-title')[0]
     this.titleInput.addEventListener('change', this.updateTitleHeader.bind(this))
+  }
+
+  checkForSongAndSave() {
+    if (this.song) {
+      this.song.fetchSaveSong()
+    }
   }
 
   clearSongDisplay() {
