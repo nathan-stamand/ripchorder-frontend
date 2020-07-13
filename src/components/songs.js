@@ -63,23 +63,30 @@ class Songs {
     this.createShowDeleteButtons()
   }
 
-  createShowDeleteButtons() {
-    // const songList = $('.song').toArray()
-    // for (const song of songList) {
-    //   const deleteBtn = document.createElement('button')
-    //   deleteBtn.className = 'delete-button'
-    //   deleteBtn.setAttribute('data-song', song.id)
-    //   deleteBtn.innerHTML = 'DELETE'
-    //   song.children[0].appendChild(deleteBtn)
-    //   deleteBtn.addEventListener('click', this.fetchDeleteSong.bind(this, song.id))
+  createDeleteBtn(song) {
+    const deleteBtn = document.createElement('button')
+    deleteBtn.className = 'delete-button'
+    deleteBtn.setAttribute('data-song', song.id)
+    deleteBtn.innerHTML = 'DELETE'
+    song.children[0].appendChild(deleteBtn)
+    deleteBtn.addEventListener('click', this.fetchDeleteSong.bind(this, song.id))
+  }
 
-    //   const showBtn = document.createElement('button')
-    //   showBtn.className = 'show-button'
-    //   showBtn.setAttribute('data-song', song.id)
-    //   showBtn.innerHTML = 'SHOW'
-    //   song.children[0].appendChild(showBtn)
-    //   showBtn.addEventListener('click', this.showSong(song.id))
-    // }
+  createShowBtn(song) {
+    const showBtn = document.createElement('button')
+    showBtn.className = 'show-button'
+    showBtn.setAttribute('data-song', song.id)
+    showBtn.innerHTML = 'SHOW'
+    song.children[0].appendChild(showBtn)
+    showBtn.addEventListener('click', this.showSong.bind(this, song.id))
+  }
+  
+  createShowDeleteButtons() {
+    const songList = $('.song').toArray()
+    for (const song of songList) {
+      this.createDeleteBtn(song)
+      this.createShowBtn(song)
+    }
   }
 
   fetchCreateSong() {
@@ -93,6 +100,7 @@ class Songs {
       return res
     })
     .then(res => {
+      this.render()
       this.liHider(res.id)
       return res
     })
