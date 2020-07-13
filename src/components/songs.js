@@ -48,6 +48,7 @@ class Songs {
   }
 
   fetchAndLoadSongs() {
+    this.songs = []
     this.adapter.getSongs().then(songs => {
       songs.data.forEach(song => this.songs.push(new Song(song)));
     })
