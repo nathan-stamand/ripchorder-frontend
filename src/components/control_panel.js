@@ -43,6 +43,7 @@ class ControlPanel {
     $('h1').remove()
     $('.feed').remove()
     $('li').attr('hidden', false)
+    this.songs.fetchAndLoadSongs()
   }
 
   createNewSong() {
