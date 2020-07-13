@@ -12,7 +12,7 @@ class Song {
   }
 
   fetchSaveSong() {
-    // const feedsArray = this.chordFeeds.createFeedsArray(this.id)
+    this.chordFeeds.saveChordFeeds(this.id)
     this.adapter.saveSong(this.id).then(res => console.log(res))
   }
 
