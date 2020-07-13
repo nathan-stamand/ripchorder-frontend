@@ -26,7 +26,13 @@ class ControlPanel {
 
   clearSongDisplay() {
     this.song = null;
-    $('#chords-container').html("Click 'NEW' to create and load a new Song!")
+    $('#chords-container').html(`<ul>
+    <li>Click 'NEW' to create and load a new Song</li>
+    <li>Chords will play when clicked and automatically add to the next available feed.</li>
+    <li>Feeds max out at four (4) total.</li>
+    <li>Click the red feed chord to remove it from the feed.</li>
+    <li>Chords are automatically placed in the next available spot!</li>
+  </ul>`)
     $('h1').remove()
     $('.feed').remove()
     $('li').attr('hidden', false)
