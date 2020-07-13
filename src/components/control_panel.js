@@ -28,7 +28,7 @@ class ControlPanel {
     this.song = null;
     $('#chords-container').html("Click 'NEW' to create and load a new Song!")
     $('h1').remove()
-    $('feed').remove()
+    $('.feed').remove()
     $('li').attr('hidden', false)
   }
 
