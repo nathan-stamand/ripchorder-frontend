@@ -4,6 +4,7 @@ class ChordContainer {
     this.mode = mode
     this.customChords = customChords;
     this.ChordContainer = $('#chords-container')[0]
+    this.initBindingsAndEventListeners()
   }
 
   renderRestAndNewChord() {
@@ -52,11 +53,18 @@ class ChordContainer {
 
   renderKeyChords() {
     this.renderRestAndNewChord()
-    $('.chord').remove()
+    // $('.chord').remove()
     const chordDegrees = scribble.getChordDegrees(`${this.mode}`)
     chordDegrees.forEach(degree => {
       this.addChord(degree)
     })
+  }
+
+  initBindingsAndEventListeners() {
+    this.keySelect = $('#key')[0]
+    this.keySelect.addEventListener('change', () => console.log(this.keySelect.value))
+    this.modeSelect = $('#mode')[0]
+    this.modeSelect.addEventListener('change', () => console.log(this.modeSelect.value))
   }
 
   playChord(button) {
