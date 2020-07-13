@@ -23,10 +23,23 @@ class ChordContainer {
     const chordContainer = this;
     button.addEventListener('mousedown', function(e) {
       chordContainer.playChord(button)
-      if ($('#song-feed-container').children().toArray().length < 1) {
+      const feedId = chordContainer.findNextAvailableFeed()
+      if (feedId) {
+
+      }
+      else {
         chordContainer.addFeed()
       }
     })
+  }
+
+  findNextAvailableFeed() {
+    const feeds = $('.feed').toArray();
+    for (const feed of feeds) {
+      if (feed.childElementCount < 8) {
+        return feed.id
+      }
+    }
   }
 
   addChord(degree) {
@@ -53,7 +66,6 @@ class ChordContainer {
 
   renderKeyChords() {
     this.renderRestAndNewChord()
-    // $('.chord').remove()
     const chordDegrees = scribble.getChordDegrees(`${this.mode}`)
     chordDegrees.forEach(degree => {
       this.addChord(degree)
