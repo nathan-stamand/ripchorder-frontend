@@ -20,6 +20,8 @@ class ControlPanel {
     this.clearBtn.addEventListener('click', this.clearSongDisplay.bind(this))
     this.newBtn = $('#new')[0]
     this.newBtn.addEventListener('click', this.createNewSong.bind(this))
+    this.titleInput = $('#new-title')[0]
+    this.titleInput.addEventListener('change', this.updateTitleHeader.bind(this))
   }
 
   clearSongDisplay() {
@@ -33,6 +35,11 @@ class ControlPanel {
   createNewSong() {
     const songs = this.songs
     songs.fetchCreateSong()
+  }
+
+  updateTitleHeader() {
+    const newTitle = $('#new-title').val()
+    $('h1').text(newTitle)
   }
 
   populateTempo() {
