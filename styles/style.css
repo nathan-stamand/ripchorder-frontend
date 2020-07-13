@@ -103,3 +103,7 @@ div#control-panel button {
 #control-panel button {
   font-size: large;
 }
+
+ul {
+  list-style: none;
+}
