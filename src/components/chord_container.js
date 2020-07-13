@@ -23,14 +23,28 @@ class ChordContainer {
     const chordContainer = this;
     button.addEventListener('mousedown', function(e) {
       chordContainer.playChord(button)
-      const feedId = chordContainer.findNextAvailableFeed()
+      let feedId = chordContainer.findNextAvailableFeed()
       if (feedId) {
-
+        chordContainer.addFeedChord(feedId, button)
       }
       else {
-        chordContainer.addFeed()
+        if (chordContainer.feedsNotMaxedOut()) {
+          chordContainer.addFeed();
+          feedId = chordContainer.findNextAvailableFeed();
+          chordContainer.addFeedChord(feedId, button)
+        }
       }
     })
+  }
+
+  feedsNotMaxedOut() {
+    return $('#song-feed-container').children().length < 4 ? true : false
+  }
+
+  addFeedChord(feedId, button) {
+    const chord = `<div class='feed-chord'>${button.textContent}-${button.getAttribute('octave')}</div>`
+    const feed = $(`div#${feedId}`)[0]
+    feed.innerHTML = feed.innerHTML + chord
   }
 
   findNextAvailableFeed() {
