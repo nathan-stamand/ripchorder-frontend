@@ -11,6 +11,10 @@ class Song {
     this.chordContainer = new ChordContainer(this.key, this.mode, this.customChords)
   }
 
+  fetchSaveSong() {
+    return this.adapter.saveSong(this.id)
+  }
+
   renderLi() {
     return `<li class="song" id="${this.id}">${this.title}<div class='button-container'></div></li>`
   }
