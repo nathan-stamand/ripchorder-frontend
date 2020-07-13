@@ -43,8 +43,9 @@ class ChordContainer {
 
   addFeedChord(feedId, button) {
     const chord = `<div class='feed-chord'>${button.textContent}-${button.getAttribute('octave')}</div>`
-    const feed = $(`div#${feedId}`)[0]
-    feed.innerHTML = feed.innerHTML + chord
+    const feeds = $(`div.feed`).toArray()
+    const feed = feeds.find(feed => feed.id === feedId)
+    feed.innerHTML += chord
   }
 
   findNextAvailableFeed() {
