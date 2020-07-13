@@ -3,6 +3,23 @@ class ChordFeeds {
     this.chordFeeds = [];
     this.songId = songId
     this.renderFeeds(chordFeedJson)
+    this.adapter = new ChordFeedsAdapter
+  }
+
+  fetchDeleteFeeds() {
+    this.chordFeeds.forEach(feed => {
+      feed.fetchDeleteFeed()
+    })
+  }
+
+  fetchCreateFeeds(songId) {
+    const feeds = $('.feed').toArray();
+    feeds.forEach(feed => {
+      let chordDivs = Array.from(feed.children)
+      let chordArray = chordDivs.map(chordDiv => chordDiv.textContent).join(', ')
+      let feedData = {position: `${feed.id}`, chord_array: `${chordArray}`, song_id: `${songId}`}
+      this.adapter.createChordFeeds(feedData)
+    })
   }
 
   last() {
