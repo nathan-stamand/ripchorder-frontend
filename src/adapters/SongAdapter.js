@@ -4,7 +4,13 @@ class SongAdapter {
   }
 
   saveVariables(songId) {
-    // return {song: {title: title, key: key, mode: mode, tempo: tempo, custom_chords: customChords, chord_feeds: chordFeeds }}
+    const title = $('h1').text();
+    const tempo = $('#tempo').val();
+    const key = $('#key');
+    const mode = $('#mode');
+    const customChords = this.getCustomChordArray();
+    const chordFeeds = this.getChordFeeds();
+    return {song: {title: title, key: key, mode: mode, tempo: tempo, custom_chords: customChords, chord_feeds: chordFeeds }}
   }
 
   saveSong(songId) {
