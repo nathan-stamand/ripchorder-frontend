@@ -6,12 +6,10 @@ class ChordFeeds {
     this.adapter = new ChordFeedsAdapter
   }
 
-  last() {
-    return this.chordFeeds[this.chordFeeds.length - 1]
-  }
-
-  lastIsFull() {
-    return this.last().isFull()
+  saveChordFeeds() {
+    for (const feed of this.chordFeeds) {
+      feed.fetchUpdateChordFeed()
+    }
   }
 
   refreshFeeds() {
