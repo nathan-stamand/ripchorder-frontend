@@ -3,14 +3,14 @@ class ChordContainer {
     this.key = key;
     this.mode = mode
     this.customChords = customChords;
-    this.ChordContainer = $('#chords-container')[0]
+    this.chordContainer = $('#chords-container')[0]
     this.initBindingsAndEventListeners()
   }
 
   renderRestAndNewChord() {
     const rest = '<button id="rest" class="non-chord">REST.</button>'
     const newChord = '<button id="new-chord" class="non-chord">+</button>'
-    this.ChordContainer.innerHTML = `${rest}${newChord}`
+    this.chordContainer.innerHTML = `${rest}${newChord}`
   }
 
   addFeed() {
