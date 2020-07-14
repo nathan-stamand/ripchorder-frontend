@@ -37,15 +37,28 @@ class ChordContainer {
     })
   }
 
+  addFeedChordEventListener(feedChord) {
+    feedChord.addEventListener('mousedown', function(e) {
+      feedChord.remove()
+      const feeds = $('.feed').toArray()
+      for (let i = 0; i != feeds.length; i++) {
+        feeds[i].children.length < 1 ? feeds[i].remove() : feeds[i].id = i + 1
+      }
+    })
+  }
+
   feedsNotMaxedOut() {
     return $('#song-feed-container').children().length < 4 ? true : false
   }
 
   addFeedChord(feedId, button) {
-    const chord = `<div class='feed-chord'>${button.textContent}-${button.getAttribute('octave')}</div>`
+    const chord = document.createElement('div')
+    chord.className = 'feed-chord'
+    chord.textContent = `${button.textContent}-${button.getAttribute('octave')}`
+    this.addFeedChordEventListener(chord)
     const feeds = $(`div.feed`).toArray()
     const feed = feeds.find(feed => feed.id === feedId)
-    feed.innerHTML += chord
+    feed.appendChild(chord)
   }
 
   findNextAvailableFeed() {
