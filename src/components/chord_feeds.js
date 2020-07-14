@@ -23,17 +23,6 @@ class ChordFeeds {
     });
   }
 
-  addEmptyChordFeed() {
-    const position = document.getElementById('song-feed-container').childElementCount + 1
-    const blankChordFeed = {id: null, position: position, chord_array: '', song_id: this.songId}
-    this.chordFeeds.push(new ChordFeed(blankChordFeed))
-    this.refreshFeeds()
-  }
-
-  full() {
-    return this.chordFeeds.length > 3 ? true : false;
-  }
-  
   addChordFeeds() {
     const feedContainer = document.getElementById('song-feed-container')
     this.chordFeeds.forEach(feed => {
