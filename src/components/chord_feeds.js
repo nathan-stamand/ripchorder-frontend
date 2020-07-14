@@ -6,28 +6,6 @@ class ChordFeeds {
     this.adapter = new ChordFeedsAdapter
   }
 
-  fetchDeleteFeeds() {
-    this.chordFeeds.forEach(feed => {
-      feed.fetchDeleteFeed()
-    })
-    this.chordFeeds = []
-  }
-
-  saveChordFeeds(songId) {
-    this.fetchDeleteFeeds()
-    this.fetchCreateFeeds(songId)
-  }
-
-  fetchCreateFeeds(songId) {
-    const feeds = $('.feed').toArray();
-    feeds.forEach(feed => {
-      let chordDivs = Array.from(feed.children)
-      let chordArray = chordDivs.map(chordDiv => chordDiv.textContent).join(', ')
-      let feedData = {position: `${feed.id}`, chord_array: `${chordArray}`, song_id: `${songId}`}
-      this.adapter.createFeed(feedData)
-    })
-  }
-
   last() {
     return this.chordFeeds[this.chordFeeds.length - 1]
   }
@@ -43,7 +21,7 @@ class ChordFeeds {
 
   renderFeeds(chordFeedJson) {
     chordFeedJson.forEach(feed => {
-      this.chordFeeds.push(new ChordFeed(feed, this))
+      this.chordFeeds.push(new ChordFeed(feed))
     });
   }
 
