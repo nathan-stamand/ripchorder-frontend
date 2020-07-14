@@ -25,10 +25,26 @@ class ControlPanel {
     this.titleInput.addEventListener('change', this.updateTitleHeader.bind(this))
   }
 
-  checkForSongAndSave() {
+  async checkForSongAndSave() {
     if (this.song) {
+      this.disableEverything()
       this.song.fetchSaveSong()
+      this.enableEverything()
     }
+  }
+
+  disableEverything() {
+    $('button').attr('disabled', true)
+    $('select').attr('disabled', true)
+    $('input').attr('disabled', true)
+    $('#song-feed-container').attr('hidden', true)
+  }
+
+  enableEverything() {
+    $('button').attr('disabled', false)
+    $('select').attr('disabled', false)
+    $('input').attr('disabled', false)
+    $('#song-feed-container').attr('hidden', false)
   }
 
   clearSongDisplay() {
