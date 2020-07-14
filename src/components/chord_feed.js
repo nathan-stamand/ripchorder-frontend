@@ -7,9 +7,6 @@ class ChordFeed {
     this.adapter = new ChordFeedAdapter
   }
 
-  fetchDeleteFeed() {
-    this.adapter.deleteChordFeed(this.id)
-  }
 
   renderChordArray(feedDiv) {
     const chordFeed = this;
