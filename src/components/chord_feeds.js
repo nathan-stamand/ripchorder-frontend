@@ -10,6 +10,12 @@ class ChordFeeds {
     this.chordFeeds.forEach(feed => {
       feed.fetchDeleteFeed()
     })
+    this.chordFeeds = []
+  }
+
+  saveChordFeeds(songId) {
+    this.fetchDeleteFeeds()
+    this.fetchCreateFeeds(songId)
   }
 
   fetchCreateFeeds(songId) {
@@ -18,7 +24,7 @@ class ChordFeeds {
       let chordDivs = Array.from(feed.children)
       let chordArray = chordDivs.map(chordDiv => chordDiv.textContent).join(', ')
       let feedData = {position: `${feed.id}`, chord_array: `${chordArray}`, song_id: `${songId}`}
-      this.adapter.createChordFeeds(feedData)
+      this.adapter.createFeed(feedData)
     })
   }
 
