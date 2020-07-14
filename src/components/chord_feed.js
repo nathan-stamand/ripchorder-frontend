@@ -7,23 +7,8 @@ class ChordFeed {
     this.adapter = new ChordFeedAdapter
   }
 
-  // isFull() {
-  //   return this.chord_array.length > 7 ? true : false;
-  // }
-
-  // addChordToFeed(chordButton) {
-  //   const chordName = chordButton.textContent;
-  //   const octave = chordButton.getAttribute('octave')
-  //   this.chord_array.push(`${chordName}-${octave}`)
-  //   console.log(this.chord_array)
-  // }
-
   fetchDeleteFeed() {
     this.adapter.deleteChordFeed(this.id)
-  }
-
-  fetchCreateFeed(feedData) {
-    console.log(feedData)
   }
 
   renderChordArray(feedDiv) {
