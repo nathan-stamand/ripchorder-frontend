@@ -7,6 +7,9 @@ class ChordFeed {
     this.adapter = new ChordFeedAdapter
   }
 
+  fetchUpdateChordFeed() {
+    this.adapter.updateChordFeed()
+  }
 
   renderChordArray(feedDiv) {
     const chordFeed = this;
