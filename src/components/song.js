@@ -12,8 +12,7 @@ class Song {
   }
 
   fetchSaveSong() {
-    this.adapter.saveSong(this.id).then(() => this.display())
-      .then(() => this.chordFeeds.saveChordFeeds(this.id))
+    this.adapter.saveSong(this.id).then(() => this.chordFeeds.saveChordFeeds())
   }
 
   renderLi() {
