@@ -3,13 +3,13 @@ class SongAdapter {
     this.baseUrl = 'http://localhost:3000/songs';
   }
 
-  saveVariables(songId) {
+  saveVariables() {
     const title = $('h1').text();
     const tempo = $('#tempo').val();
     const key = $('#key').val();
     const mode = $('#mode').val();
     const customChords = this.getCustomChordArray();
-    return {song: {title: title, key: key, mode: mode, tempo: tempo, custom_chords: customChords, chord_feeds: []}}
+    return {song: {title: title, key: key, mode: mode, tempo: tempo, custom_chords: customChords}}
   }
 
   getCustomChordArray() {
