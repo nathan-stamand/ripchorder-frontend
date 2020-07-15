@@ -107,3 +107,8 @@ div#control-panel button {
 ul {
   list-style: none;
 }
+
+#add-chord-container {
+  background-color: rgb(223, 173, 99);
+  padding: 5px;
+}
