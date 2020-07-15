@@ -5,6 +5,8 @@ class ControlPanel {
     this.populateTempo();
     this.populateKey();
     this.populateMode();
+    this.populateChordName();
+    this.populateModifier();
     this.initBindingsAndListeners()
   }
   
@@ -91,6 +93,20 @@ class ControlPanel {
     const modes = ['major', 'minor']
     for (const mode of modes) {
       $('#mode').append(`<option id=${mode} value='${mode}'>${mode}</option>`)
+    }
+  }
+
+  populateChordName() {
+    const notes = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'F#', 'G', 'Ab', 'A', 'Bb', 'B']
+    for (const note of notes) {
+      $('#chord-name').append(`<option id=${note} value='${note}'>${note}</option>`)
+    }
+  }
+
+  populateModifier() {
+    const modifiers = scribble.chords()
+    for (const mod of modifiers) {
+      $('#modifier').append(`<option id=${mod} value='${mod}'>${mod}</option>`)
     }
   }
 
