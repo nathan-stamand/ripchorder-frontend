@@ -11,18 +11,20 @@ class ChordContainer {
     const rest = '<button id="rest" class="non-chord">REST.</button>'
     const newChord = '<button id="new-chord" class="non-chord">+</button>'
     this.chordContainer.innerHTML = `${rest}${newChord}`
+    // this.newChordBtn = $('#new-chord')[0]
+    this.addRestEventListener()
+    // this.addNewChordEventListener()
   }
 
-  addFeed() {
-    const position = document.getElementById('song-feed-container').childElementCount + 1
-    const newFeed = `<div id="${position}" class="feed"></div>`
-    $('div#song-feed-container').append(newFeed)
-    }
+  addRestEventListener() {
+    this.restBtn = $('#rest')[0]
+    this.addChordListener(this.restBtn)
+  }
 
   addChordListener(button) {
     const chordContainer = this;
     button.addEventListener('mousedown', function(e) {
-      chordContainer.playChord(button)
+      button.className === 'chord' ? chordContainer.playChord(button) : null
       let feedId = chordContainer.findNextAvailableFeed()
       if (feedId) {
         chordContainer.addFeedChord(feedId, button)
@@ -50,11 +52,20 @@ class ChordContainer {
   addFeedChord(feedId, button) {
     const chord = document.createElement('div')
     chord.className = 'feed-chord'
-    chord.textContent = `${button.textContent}-${button.getAttribute('octave')}`
+    this.setFeedChordText(chord, button)
     this.addFeedChordEventListener(chord)
     const feeds = $(`div.feed`).toArray()
     const feed = feeds.find(feed => feed.id === feedId)
     feed.appendChild(chord)
+  }
+
+  setFeedChordText(chord, button) {
+    if (button.getAttribute('octave')) {
+      chord.textContent = `${button.textContent}-${button.getAttribute('octave')}`
+    }
+    else {
+      chord.textContent = 'REST.'
+    }
   }
 
   findNextAvailableFeed() {
