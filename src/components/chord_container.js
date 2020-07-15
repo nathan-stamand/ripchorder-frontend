@@ -24,18 +24,18 @@ class ChordContainer {
   addChordListener(button) {
     const chordContainer = this;
     button.addEventListener('mousedown', function(e) {
-      button.className === 'chord' ? chordContainer.playChord(button) : null
+      chordContainer.playChord(button)
       let feedId = chordContainer.findNextAvailableFeed()
       if (feedId) {
         chordContainer.addFeedChord(feedId, button)
       }
-      else {
-        if (chordContainer.feedsNotMaxedOut()) {
-          chordContainer.addFeed();
-          feedId = chordContainer.findNextAvailableFeed();
-          chordContainer.addFeedChord(feedId, button)
-        }
-      }
+      // else {
+        // if (chordContainer.feedsNotMaxedOut()) {
+        //   chordContainer.addFeed();
+        //   feedId = chordContainer.findNextAvailableFeed();
+        //   chordContainer.addFeedChord(feedId, button)
+        // }
+      // }
     })
   }
 
@@ -124,12 +124,14 @@ class ChordContainer {
 
   playChord(button) {
     Tone.start()
-    const note = button.textContent;
-    const octave = button.getAttribute('octave')
-    const notes = scribble.chord(`${note}-${octave}`)
-    notes.forEach(note => {
-      this.playNote(note)
-    })
+    if (button.textContent != 'REST.') {
+      const note = button.textContent;
+      const octave = button.getAttribute('octave')
+      const notes = scribble.chord(`${note}-${octave}`)
+      notes.forEach(note => {
+        this.playNote(note)
+      })
+    }
   }
 
   playNote(note) {
