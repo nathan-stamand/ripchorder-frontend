@@ -58,6 +58,8 @@ class ControlPanel {
   </ul>`)
     $('h1').remove()
     $('.feed').remove()
+    $('select').val('')
+    $('input').val('New Song')
     $('li').attr('hidden', false)
     this.songs.fetchAndLoadSongs()
   }
@@ -94,12 +96,14 @@ class ControlPanel {
 
   playChord(button) {
     Tone.start()
-    const note = button.textContent;
-    const octave = button.getAttribute('octave')
-    const notes = scribble.chord(`${note}-${octave}`)
-    notes.forEach(note => {
-      this.playNote(note)
-    })
+    if (button.textContent != 'REST.') {
+      const note = button.textContent;
+      const octave = button.getAttribute('octave')
+      const notes = scribble.chord(`${note}-${octave}`)
+      notes.forEach(note => {
+        this.playNote(note)
+      })
+    }
   }
 
   playNote(note) {
