@@ -89,13 +89,20 @@ class ChordContainer {
 
   addCustomChords() {
     for (const chord of this.customChords) {
+      const chordName = chord.split('-')[0]
+      const octave = chord.split('-')[1]
       const custChord = document.createElement('button');
       custChord.className = 'custom chord';
-      custChord.setAttribute('octave', '4')
-      custChord.textContent = chord;
+      custChord.setAttribute('octave', octave)
+      custChord.textContent = chordName;
       this.addChordListener(custChord)
       $(custChord).insertBefore('#new-chord');
     }
+  }
+
+  refreshCustomChords() {
+    $('.custom').remove()
+    this.addCustomChords()
   }
 
   renderKeyChords() {
