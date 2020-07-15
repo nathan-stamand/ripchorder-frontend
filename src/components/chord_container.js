@@ -11,9 +11,15 @@ class ChordContainer {
     const rest = '<button id="rest" class="non-chord">REST.</button>'
     const newChord = '<button id="new-chord" class="non-chord">+</button>'
     this.chordContainer.innerHTML = `${rest}${newChord}`
-    // this.newChordBtn = $('#new-chord')[0]
     this.addRestEventListener()
-    // this.addNewChordEventListener()
+    this.addNewChordEventListener()
+  }
+
+  addNewChordEventListener() {
+    this.newChordBtn = $('#new-chord')[0]
+    this.newChordBtn.addEventListener('click', () => {
+      $('#add-chord-container').attr('hidden', false)
+    })
   }
 
   addRestEventListener() {
@@ -29,13 +35,6 @@ class ChordContainer {
       if (feedId) {
         chordContainer.addFeedChord(feedId, button)
       }
-      // else {
-        // if (chordContainer.feedsNotMaxedOut()) {
-        //   chordContainer.addFeed();
-        //   feedId = chordContainer.findNextAvailableFeed();
-        //   chordContainer.addFeedChord(feedId, button)
-        // }
-      // }
     })
   }
 
