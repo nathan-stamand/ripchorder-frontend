@@ -25,6 +25,21 @@ class ControlPanel {
     this.newBtn.addEventListener('click', this.createNewSong.bind(this))
     this.titleInput = $('#new-title')[0]
     this.titleInput.addEventListener('change', this.updateTitleHeader.bind(this))
+    this.addChordBtn = $('#create-chord')[0]
+    this.addChordBtn.addEventListener('click', () => this.addCustomChord())
+  }
+
+  addCustomChord() {
+    if (this.song) {
+      const chordName = $('#chord-name').val()
+      const modifier = $('#modifier').val()
+      const octave = $('select#octave').val()
+      const chord = `<button class='custom chord' octave='${octave}'>${chordName}${modifier}</button>`
+      $('#chords-container').append(chord)
+      this.song.chordContainer.customChords.push(`${chordName}${modifier}-${octave}`)
+      this.song.chordContainer.refreshCustomChords()
+      $('#add-chord-container').attr('hidden', true)
+    }
   }
 
   async checkForSongAndSave() {
