@@ -6,10 +6,15 @@ class ChordFeeds {
     this.adapter = new ChordFeedsAdapter
   }
 
-  saveChordFeeds() {
+  async saveChordFeeds() {
     for (const feed of this.chordFeeds) {
       feed.fetchUpdateChordFeed()
+      await this.sleep(50)
     }
+  }
+
+  sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   refreshFeeds() {
