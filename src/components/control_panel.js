@@ -46,6 +46,7 @@ class ControlPanel {
     if (this.song) {
       this.disableEverything()
       this.song.fetchSaveSong()
+      await this.sleep(1000)
       this.enableEverything()
     }
   }
