@@ -39,7 +39,7 @@ class Song {
     title.textContent = this.title
     title.id = this.id
     document.body.insertAdjacentElement('afterbegin', title)
-    $('#new-title').attr('value', title.textContent)
+    $('#new-title').val(title.textContent)
   }
 
   renderTempoKeyMode() {
