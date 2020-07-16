@@ -15,7 +15,7 @@ class SongAdapter {
   getCustomChordArray() {
     const customChordBtns = $('.custom.chord').toArray();
     const customChords = customChordBtns.map(btn => {
-      return btn.textContent
+      return `${btn.textContent}-${btn.getAttribute('octave')}`
     }).join(', ')
     return customChords
   }
