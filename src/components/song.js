@@ -6,9 +6,9 @@ class Song {
     this.mode = songJson.attributes.mode;
     this.tempo = songJson.attributes.tempo;
     this.chordFeeds = new ChordFeeds(songJson.attributes.chord_feeds);
-    this.customChords = songJson.attributes.custom_chords ? songJson.attributes.custom_chords.split(', ') : null;
+    this.customChords = songJson.attributes.custom_chords ? songJson.attributes.custom_chords.split(', ') : [];
     this.adapter = new SongAdapter;
-    this.chordContainer = new ChordContainer(this.key, this.mode, this.customChords)
+    this.chordContainer = new ChordContainer(this)
   }
 
   fetchSaveSong() {

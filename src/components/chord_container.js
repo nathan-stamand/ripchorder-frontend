@@ -1,8 +1,9 @@
 class ChordContainer {
-  constructor(key, mode, customChords) {
-    this.key = key;
-    this.mode = mode
-    this.customChords = customChords || [];
+  constructor(song) {
+    this.song = song
+    this.key = song.key;
+    this.mode = song.mode
+    this.customChords = song.customChords || [];
     this.chordContainer = $('#chords-container')[0]
     this.initBindingsAndEventListeners()
   }
