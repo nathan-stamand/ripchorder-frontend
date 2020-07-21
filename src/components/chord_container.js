@@ -21,6 +21,8 @@ class ChordContainer {
     const newMode = $('#mode').val()
     this.key = newKey;
     this.mode = newMode;
+    this.song.key = newKey;
+    this.song.mode = newMode;
     this.renderKeyChords()
   }
 
