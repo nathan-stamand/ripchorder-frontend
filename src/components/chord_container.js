@@ -4,8 +4,32 @@ class ChordContainer {
     this.key = song.key;
     this.mode = song.mode
     this.customChords = song.customChords || [];
+    this.chordFeeds = song.chordFeeds;
     this.chordContainer = $('#chords-container')[0]
     this.initBindingsAndEventListeners()
+  }
+
+  initBindingsAndEventListeners() {
+    this.keySelect = $('#key')[0]
+    this.keySelect.addEventListener('change', this.updateKeyChords.bind(this))
+    this.modeSelect = $('#mode')[0]
+    this.modeSelect.addEventListener('change', this.updateKeyChords.bind(this))
+  }
+
+  updateKeyChords() {
+    const newKey = $('#key').val()
+    const newMode = $('#mode').val()
+    this.key = newKey;
+    this.mode = newMode;
+    this.renderKeyChords()
+  }
+
+  renderKeyChords() {
+    this.renderRestAndNewChord()
+    const chordDegrees = scribble.getChordDegrees(`${this.mode}`)
+    chordDegrees.forEach(degree => {
+      this.addChord(degree)
+    })
   }
 
   renderRestAndNewChord() {
@@ -16,6 +40,12 @@ class ChordContainer {
     this.addNewChordEventListener()
   }
 
+
+  addRestEventListener() {
+    this.restBtn = $('#rest')[0]
+    this.addChordListener(this.restBtn)
+  }
+
   addNewChordEventListener() {
     this.newChordBtn = $('#new-chord')[0]
     this.newChordBtn.addEventListener('click', () => {
@@ -23,9 +53,15 @@ class ChordContainer {
     })
   }
 
-  addRestEventListener() {
-    this.restBtn = $('#rest')[0]
-    this.addChordListener(this.restBtn)
+  addChord(degree) {
+    const chord = scribble.getChordsByProgression(`${this.key} ${this.mode}`, `${degree}`).split('-');
+    const chordBtn = document.createElement('button')
+    chordBtn.id = degree;
+    chordBtn.className = 'chord';
+    chordBtn.setAttribute('octave', `${chord[1]}`)
+    chordBtn.textContent = chord[0];
+    this.addChordListener(chordBtn)
+    $(chordBtn).insertBefore('#new-chord')
   }
 
   addChordListener(button) {
@@ -39,14 +75,31 @@ class ChordContainer {
     })
   }
 
-  addFeedChordEventListener(feedChord) {
-    feedChord.addEventListener('mousedown', function(e) {
-      feedChord.remove()
-    })
+  playChord(button) {
+    Tone.start()
+    if (button.textContent != 'REST.') {
+      const note = button.textContent;
+      const octave = button.getAttribute('octave')
+      const notes = scribble.chord(`${note}-${octave}`)
+      notes.forEach(note => {
+        this.playNote(note)
+      })
+    }
   }
 
-  feedsNotMaxedOut() {
-    return $('#song-feed-container').children().length < 4 ? true : false
+  playNote(note) {
+    Tone.Transport.bpm.value = $('#tempo option:selected').text();
+    const synth = new Tone.Synth().toDestination()
+    synth.triggerAttackRelease(note, '4n')
+  }
+
+  findNextAvailableFeed() {
+    const feeds = $('.feed').toArray();
+    for (const feed of feeds) {
+      if (feed.childElementCount < 8) {
+        return feed.id
+      }
+    }
   }
 
   addFeedChord(feedId, button) {
@@ -68,24 +121,14 @@ class ChordContainer {
     }
   }
 
-  findNextAvailableFeed() {
-    const feeds = $('.feed').toArray();
-    for (const feed of feeds) {
-      if (feed.childElementCount < 8) {
-        return feed.id
-      }
-    }
+  addFeedChordEventListener(feedChord) {
+    feedChord.addEventListener('mousedown', function(e) {
+      feedChord.remove()
+    })
   }
 
-  addChord(degree) {
-    const chord = scribble.getChordsByProgression(`${this.key} ${this.mode}`, `${degree}`).split('-');
-    const chordBtn = document.createElement('button')
-    chordBtn.id = degree;
-    chordBtn.className = 'chord';
-    chordBtn.setAttribute('octave', `${chord[1]}`)
-    chordBtn.textContent = chord[0];
-    this.addChordListener(chordBtn)
-    $(chordBtn).insertBefore('#new-chord')
+  feedsNotMaxedOut() {
+    return $('#song-feed-container').children().length < 4 ? true : false
   }
 
   addCustomChords() {
@@ -101,49 +144,8 @@ class ChordContainer {
     }
   }
 
-  refreshCustomChords() {
-    $('.custom').remove()
-    this.addCustomChords()
-  }
-
-  renderKeyChords() {
-    this.renderRestAndNewChord()
-    const chordDegrees = scribble.getChordDegrees(`${this.mode}`)
-    chordDegrees.forEach(degree => {
-      this.addChord(degree)
-    })
-  }
-
-  initBindingsAndEventListeners() {
-    this.keySelect = $('#key')[0]
-    this.keySelect.addEventListener('change', this.updateKeyChords.bind(this))
-    this.modeSelect = $('#mode')[0]
-    this.modeSelect.addEventListener('change', this.updateKeyChords.bind(this))
-  }
-
-  updateKeyChords() {
-    const newKey = $('#key').val()
-    const newMode = $('#mode').val()
-    this.key = newKey;
-    this.mode = newMode;
-    this.renderKeyChords()
-  }
-
-  playChord(button) {
-    Tone.start()
-    if (button.textContent != 'REST.') {
-      const note = button.textContent;
-      const octave = button.getAttribute('octave')
-      const notes = scribble.chord(`${note}-${octave}`)
-      notes.forEach(note => {
-        this.playNote(note)
-      })
-    }
-  }
-
-  playNote(note) {
-    Tone.Transport.bpm.value = $('#tempo option:selected').text();
-    const synth = new Tone.Synth().toDestination()
-    synth.triggerAttackRelease(note, '4n')
-  }
+  // refreshCustomChords() {
+  //   $('.custom').remove()
+  //   this.addCustomChords()
+  // }
 }
