@@ -7,10 +7,6 @@ class ChordFeed {
     this.adapter = new ChordFeedAdapter
   }
 
-  fetchUpdateChordFeed() {
-    this.adapter.updateChordFeed(this.position, this.id)
-  }
-
   renderChordArray(feedDiv) {
     const chordFeed = this;
     this.chord_array.map(chord => {
@@ -26,5 +22,9 @@ class ChordFeed {
     feedChord.addEventListener('mousedown', function(e) {
       feedChord.remove()
     })
+  }
+
+  fetchUpdateChordFeed() {
+    this.adapter.updateChordFeed(this.position, this.id)
   }
 }
