@@ -176,7 +176,8 @@ class ControlPanel {
   updateTitle() {
     const newTitle = $('#new-title').val()
     this.song.title = newTitle;
-    $('h1').text(newTitle)
+    // $('h1').text(newTitle)
+    this.song.display()
   }
 
   addCustomChord() {
@@ -184,11 +185,11 @@ class ControlPanel {
       const chordName = $('#chord-name').val()
       const modifier = $('#modifier').val()
       const octave = $('select#octave').val()
-      const chord = `<button class='custom chord' octave='${octave}'>${chordName}${modifier}</button>`
-      $('#chords-container').append(chord)
-      this.song.chordContainer.customChords.push(`${chordName}${modifier}-${octave}`)
+      // const chord = `<button class='custom chord' octave='${octave}'>${chordName}${modifier}</button>`
+      // $('#chords-container').append(chord)
+      // this.song.chordContainer.customChords.push(`${chordName}${modifier}-${octave}`)
       this.song.customChords.push(`${chordName}${modifier}-${octave}`)
-      this.song.chordContainer.refreshCustomChords()
+      this.song.display()
       $('#add-chord-container').attr('hidden', true)
     }
   }
