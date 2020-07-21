@@ -1,5 +1,5 @@
 class Song {
-  constructor(songJson) {
+  constructor(songJson, controlPanel) {
     this.id = songJson.id;
     this.title = songJson.attributes.title;
     this.key = songJson.attributes.key;
@@ -8,7 +8,7 @@ class Song {
     this.chordFeeds = new ChordFeeds(songJson.attributes.chord_feeds);
     this.customChords = songJson.attributes.custom_chords ? songJson.attributes.custom_chords.split(', ') : [];
     this.adapter = new SongAdapter;
-    this.chordContainer = new ChordContainer(this)
+    this.chordContainer = new ChordContainer(this, controlPanel)
   }
 
   fetchSaveSong() {

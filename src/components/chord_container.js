@@ -1,10 +1,11 @@
 class ChordContainer {
-  constructor(song) {
+  constructor(song, controlPanel) {
     this.song = song
     this.key = song.key;
     this.mode = song.mode
     this.customChords = song.customChords;
     this.chordFeeds = song.chordFeeds;
+    this.controlPanel = controlPanel;
     this.chordContainer = $('#chords-container')[0]
     this.initBindingsAndEventListeners()
   }
@@ -95,9 +96,9 @@ class ChordContainer {
   }
 
   findNextAvailableFeed() {
-    const feeds = $('.feed').toArray();
+    const feeds = this.chordFeeds.chordFeeds;
     for (const feed of feeds) {
-      if (feed.childElementCount < 8) {
+      if (feed.chord_array.length < 8) {
         return feed.id
       }
     }
@@ -108,9 +109,11 @@ class ChordContainer {
     chord.className = 'feed-chord'
     this.setFeedChordText(chord, button)
     this.addFeedChordEventListener(chord)
-    const feeds = $(`div.feed`).toArray()
+    const feeds = this.chordFeeds.chordFeeds
     const feed = feeds.find(feed => feed.id === feedId)
-    feed.appendChild(chord)
+    feed.chord_array.push(chord.textContent)
+    this.song.display()
+    this.controlPanel.chordsForPlay()
   }
 
   setFeedChordText(chord, button) {
