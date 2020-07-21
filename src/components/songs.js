@@ -1,5 +1,5 @@
 class Songs {
-  constructor(app, controlPanel) {
+  constructor(controlPanel) {
     this.adapter = new SongsAdapter;
     this.songs = [];
     this.controlPanel = controlPanel;
@@ -12,7 +12,7 @@ class Songs {
   fetchAndLoadSongs() {
     this.songs = []
     this.adapter.getSongs().then(songs => {
-      songs.data.forEach(song => this.songs.push(new Song(song)));
+      songs.data.forEach(song => this.songs.push(new Song(song, this.controlPanel)));
     })
     .then(() => {
       this.render()
