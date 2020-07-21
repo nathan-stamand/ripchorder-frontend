@@ -9,6 +9,49 @@ class Songs {
     this.controlPanel.songs = this;
   }
 
+  fetchAndLoadSongs() {
+    this.songs = []
+    this.adapter.getSongs().then(songs => {
+      songs.data.forEach(song => this.songs.push(new Song(song)));
+    })
+    .then(() => {
+      this.render()
+    }).then(() => {
+      this.initBindingsAndEventListeners()
+    })
+  }
+
+  render() {
+    this.songList.innerHTML = this.songs.map(song => song.renderLi()).join('')
+    this.createShowDeleteButtons()
+  }
+
+  createShowDeleteButtons() {
+    const songList = $('.song').toArray()
+    for (const song of songList) {
+      this.createDeleteBtn(song)
+      this.createShowBtn(song)
+    }
+  }
+
+  createDeleteBtn(song) {
+    const deleteBtn = document.createElement('button')
+    deleteBtn.className = 'delete-button'
+    deleteBtn.setAttribute('data-song', song.id)
+    deleteBtn.innerHTML = 'DELETE'
+    song.children[0].appendChild(deleteBtn)
+    deleteBtn.addEventListener('click', this.fetchDeleteSong.bind(this, song.id))
+  }
+
+  createShowBtn(song) {
+    const showBtn = document.createElement('button')
+    showBtn.className = 'show-button'
+    showBtn.setAttribute('data-song', song.id)
+    showBtn.innerHTML = 'SHOW'
+    song.children[0].appendChild(showBtn)
+    showBtn.addEventListener('click', this.showSong.bind(this, song.id))
+  }
+
   initBindingsAndEventListeners() {
     this.songsContainer = document.getElementById('songs-container');
     this.allSongs = document.getElementById('all-songs');
@@ -33,63 +76,6 @@ class Songs {
     }
   }
 
-  showSong(id) {
-    const song = this.songs.find(song => song.id === id)
-    song.display();
-    this.liHider(id)
-    this.controlPanel.song = song;
-  }
-
-  liHider(id) {
-    const songListArray = $(`li`).toArray()
-    for (const li of songListArray) {
-      li.id === id ? li.hidden = true : li.hidden = false;
-    }
-  }
-
-  fetchAndLoadSongs() {
-    this.songs = []
-    this.adapter.getSongs().then(songs => {
-      songs.data.forEach(song => this.songs.push(new Song(song)));
-    })
-    .then(() => {
-      this.render()
-    }).then(() => {
-      this.initBindingsAndEventListeners()
-    })
-  }
-
-  render() {
-    this.songList.innerHTML = this.songs.map(song => song.renderLi()).join('')
-    this.createShowDeleteButtons()
-  }
-
-  createDeleteBtn(song) {
-    const deleteBtn = document.createElement('button')
-    deleteBtn.className = 'delete-button'
-    deleteBtn.setAttribute('data-song', song.id)
-    deleteBtn.innerHTML = 'DELETE'
-    song.children[0].appendChild(deleteBtn)
-    deleteBtn.addEventListener('click', this.fetchDeleteSong.bind(this, song.id))
-  }
-
-  createShowBtn(song) {
-    const showBtn = document.createElement('button')
-    showBtn.className = 'show-button'
-    showBtn.setAttribute('data-song', song.id)
-    showBtn.innerHTML = 'SHOW'
-    song.children[0].appendChild(showBtn)
-    showBtn.addEventListener('click', this.showSong.bind(this, song.id))
-  }
-  
-  createShowDeleteButtons() {
-    const songList = $('.song').toArray()
-    for (const song of songList) {
-      this.createDeleteBtn(song)
-      this.createShowBtn(song)
-    }
-  }
-
   fetchCreateSong() {
     return this.adapter.createSong().then(song => {
       const newSong = new Song(song.data)
@@ -105,6 +91,20 @@ class Songs {
       this.liHider(res.id)
       return res
     })
+  }
+
+  showSong(id) {
+    const song = this.songs.find(song => song.id === id)
+    song.display();
+    this.liHider(id)
+    this.controlPanel.song = song;
+  }
+
+  liHider(id) {
+    const songListArray = $(`li`).toArray()
+    for (const li of songListArray) {
+      li.id === id ? li.hidden = true : li.hidden = false;
+    }
   }
 
   fetchDeleteSong(id) {
