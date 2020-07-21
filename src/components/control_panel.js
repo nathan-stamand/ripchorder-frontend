@@ -65,34 +65,35 @@ class ControlPanel {
 
   async play(e) {
     Tone.start()
-    const chords = this.chordsForPlay()
-    for (let i = 0; i < chords.length; i++) {
+    for (let i = 0; i < this.chords.length; i) {
       this.waitTime = 60000/$('#tempo option:selected').text()
       const status = document.getElementById('song-feed-container').getAttribute('status');
       switch(status) {
         case 'play':
-        if (i === chords.length - 1) {
-          this.clearStartChords()
+        if (i === this.chords.length - 1) {
+          this.addStopStatus()
         }
-        this.playChord(chords[i])
+        this.playChord(this.chords[i])
+        this.chords.shift()
         await this.sleep(this.waitTime)
-      break;
+        break;
       case 'pause':
         chords[i].setAttribute('start-chord', 'start')
         this.addPauseStatus()
         return;
       default:
+        this.chordsForPlay()
         return;
       }
     }
   }
 
-  playChord(button) {
+  playChord(chord) {
     Tone.start()
-    if (button.textContent != 'REST.') {
-      const note = button.textContent;
-      const octave = button.getAttribute('octave')
-      const notes = scribble.chord(`${note}-${octave}`)
+    if (chord != 'REST.') {
+      // const note = button.textContent;
+      // const octave = button.getAttribute('octave')
+      const notes = scribble.chord(`${chord}`)
       notes.forEach(note => {
         this.playNote(note)
       })
@@ -113,36 +114,35 @@ class ControlPanel {
     $('#song-feed-container').attr('status', 'stop')
     await this.sleep(this.waitTime)
     $('#song-feed-container').attr('status', 'play')
-    this.clearStartChords()
+    // this.clearStartChords()
 }
 
-  clearStartChords() {
-    $('.feed-chord[start-chord="start"').attr('start-chord', 'false')
-  }
+  // clearStartChords() {
+  //   $('.feed-chord[start-chord="start"').attr('start-chord', 'false')
+  // }
 
   chordsForPlay() {
-    let chords = $('div.feed-chord').toArray()
-    const startChord = chords.findIndex(chord => chord.getAttribute('start-chord') === 'start')
-    if (startChord > 0) {
-      chords = chords.slice(startChord)
-    }
-    return chords;
+    this.chordFeeds = this.song.chordFeeds.chordFeeds ;
+    this.chords = [];
+    this.chordFeeds.forEach(feed => {
+      this.chords = this.chords.concat(feed.chord_array)
+    });
   }
 
   async addPauseStatus() {
     $('#song-feed-container').attr('status', 'pause')
     await this.sleep(this.waitTime)
     $('#song-feed-container').attr('status', 'play')
-    this.refreshStartChord()
+    // this.refreshStartChord()
   }
 
-  refreshStartChord() {
-    let chords = this.chordsForPlay()
-    let startChords = chords.filter(chord => chord.getAttribute('start-chord') === 'start')
-    if (startChords.length > 1) {
-      startChords[0].setAttribute('start-chord', 'false')
-    }
-  }
+  // refreshStartChord() {
+  //   let chords = this.chordsForPlay()
+  //   let startChords = chords.filter(chord => chord.getAttribute('start-chord') === 'start')
+  //   if (startChords.length > 1) {
+  //     startChords[0].setAttribute('start-chord', 'false')
+  //   }
+  // }
 
   async checkForSongAndSave() {
     if (this.song) {
