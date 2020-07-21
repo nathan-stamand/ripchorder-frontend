@@ -3,7 +3,7 @@ class ChordContainer {
     this.song = song
     this.key = song.key;
     this.mode = song.mode
-    this.customChords = song.customChords || [];
+    this.customChords = song.customChords;
     this.chordFeeds = song.chordFeeds;
     this.chordContainer = $('#chords-container')[0]
     this.initBindingsAndEventListeners()
@@ -39,7 +39,6 @@ class ChordContainer {
     this.addRestEventListener()
     this.addNewChordEventListener()
   }
-
 
   addRestEventListener() {
     this.restBtn = $('#rest')[0]
