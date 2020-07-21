@@ -144,8 +144,8 @@ class ChordContainer {
     }
   }
 
-  // refreshCustomChords() {
-  //   $('.custom').remove()
-  //   this.addCustomChords()
-  // }
+  refreshCustomChords() {
+    $('.custom').remove()
+    this.addCustomChords()
+  }
 }
