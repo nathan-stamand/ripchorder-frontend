@@ -19,6 +19,13 @@ class Song {
     return `<li class="song" id="${this.id}">${this.title}<div class='button-container'></div></li>`
   }
 
+  display() {
+    this.renderChords()
+    this.renderTempoKeyMode()
+    this.renderTitle()
+    this.chordFeeds.refreshFeeds()
+  }
+
   renderChords() {
     this.chordContainer.renderKeyChords()
     if (this.customChords) {
@@ -26,11 +33,12 @@ class Song {
     }
   }
 
-  display() {
-    this.renderChords()
-    this.renderTempoKeyMode()
-    this.renderTitle()
-    this.chordFeeds.refreshFeeds()
+  renderTempoKeyMode() {
+    $(document).ready(() => {
+      $(`select#tempo option[value='${this.tempo}']`).prop('selected', true)
+      $(`select#key option[value='${this.key}']`).prop('selected', true)
+      $(`select#mode option[value='${this.mode}']`).prop('selected', true)
+    })
   }
 
   renderTitle() {
@@ -40,13 +48,5 @@ class Song {
     title.id = this.id
     document.body.insertAdjacentElement('afterbegin', title)
     $('#new-title').val(title.textContent)
-  }
-
-  renderTempoKeyMode() {
-    $(document).ready(() => {
-      $(`select#tempo option[value='${this.tempo}']`).prop('selected', true)
-      $(`select#key option[value='${this.key}']`).prop('selected', true)
-      $(`select#mode option[value='${this.mode}']`).prop('selected', true)
-    })
   }
 }
