@@ -78,7 +78,6 @@ class ControlPanel {
         await this.sleep(this.waitTime)
         break;
       case 'pause':
-        chords[i].setAttribute('start-chord', 'start')
         this.addPauseStatus()
         return;
       default:
@@ -86,6 +85,7 @@ class ControlPanel {
         return;
       }
     }
+    this.chordsForPlay()
   }
 
   playChord(chord) {
@@ -185,9 +185,6 @@ class ControlPanel {
       const chordName = $('#chord-name').val()
       const modifier = $('#modifier').val()
       const octave = $('select#octave').val()
-      // const chord = `<button class='custom chord' octave='${octave}'>${chordName}${modifier}</button>`
-      // $('#chords-container').append(chord)
-      // this.song.chordContainer.customChords.push(`${chordName}${modifier}-${octave}`)
       this.song.customChords.push(`${chordName}${modifier}-${octave}`)
       this.song.display()
       $('#add-chord-container').attr('hidden', true)
