@@ -62,19 +62,17 @@ class ControlPanel {
     this.titleInput.addEventListener('change', this.updateTitle.bind(this))
     this.addChordBtn = $('#create-chord')[0]
     this.addChordBtn.addEventListener('click', () => this.addCustomChord())
+    this.tempoSelect = $('#tempo')[0]
+    this.tempoSelect.addEventListener('change', () => this.updateTempo())
   }
 
   async play(e) {
     Tone.start()
     for (let i = 0; i < this.chords.length; i) {
-      this.waitTime = 60000/$('#tempo option:selected').text()
+      this.waitTime = 60000/this.song.tempo
       switch(this.status) {
         case 'play':
-        if (i === this.chords.length - 1) {
-          this.addStopStatus()
-        }
-        this.playChord(this.chords[i])
-        this.chords.shift()
+        this.continuePlay(i)
         await this.sleep(this.waitTime)
         break;
       case 'pause':
@@ -88,6 +86,14 @@ class ControlPanel {
     this.chordsForPlay()
   }
 
+  continuePlay(i) {
+    if (i === this.chords.length - 1) {
+      this.addStopStatus()
+    }
+    this.playChord(this.chords[i])
+    this.chords.shift()
+  }
+
   playChord(chord) {
     Tone.start()
     if (chord != 'REST.') {
@@ -99,7 +105,7 @@ class ControlPanel {
   }
 
   playNote(note) {
-    Tone.Transport.bpm.value = $('#tempo option:selected').text();
+    Tone.Transport.bpm.value = this.song.tempo;
     const synth = new Tone.Synth().toDestination()
     synth.triggerAttackRelease(note, '4n')
   }
@@ -188,6 +194,12 @@ class ControlPanel {
       this.song.customChords.push(`${chordName}${modifier}-${octave}`)
       this.song.display()
       $('#add-chord-container').attr('hidden', true)
+    }
+  }
+
+  updateTempo() {
+    if (this.song) {
+      this.song.tempo = this.tempoSelect.value
     }
   }
 }
