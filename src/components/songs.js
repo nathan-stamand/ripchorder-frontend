@@ -78,7 +78,7 @@ class Songs {
 
   fetchCreateSong() {
     return this.adapter.createSong().then(song => {
-      const newSong = new Song(song.data)
+      const newSong = new Song(song.data, this.controlPanel)
       this.songs.push(newSong)
       return newSong
     })
