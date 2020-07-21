@@ -98,6 +98,8 @@ class Songs {
     song.display();
     this.liHider(id)
     this.controlPanel.song = song;
+    this.controlPanel.chordFeeds = song.chordFeeds
+    this.controlPanel.chordsForPlay()
   }
 
   liHider(id) {
