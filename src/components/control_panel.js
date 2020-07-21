@@ -2,6 +2,7 @@ class ControlPanel {
   constructor(app) {
     this.app = app;
     this.song = null;
+    this.status = 'play';
     this.populateTempo();
     this.populateKey();
     this.populateMode();
@@ -58,7 +59,7 @@ class ControlPanel {
     this.newBtn = $('#new')[0]
     this.newBtn.addEventListener('click', this.createNewSong.bind(this))
     this.titleInput = $('#new-title')[0]
-    this.titleInput.addEventListener('change', this.updateTitleHeader.bind(this))
+    this.titleInput.addEventListener('change', this.updateTitle.bind(this))
     this.addChordBtn = $('#create-chord')[0]
     this.addChordBtn.addEventListener('click', () => this.addCustomChord())
   }
@@ -67,8 +68,7 @@ class ControlPanel {
     Tone.start()
     for (let i = 0; i < this.chords.length; i) {
       this.waitTime = 60000/$('#tempo option:selected').text()
-      const status = document.getElementById('song-feed-container').getAttribute('status');
-      switch(status) {
+      switch(this.status) {
         case 'play':
         if (i === this.chords.length - 1) {
           this.addStopStatus()
@@ -91,8 +91,6 @@ class ControlPanel {
   playChord(chord) {
     Tone.start()
     if (chord != 'REST.') {
-      // const note = button.textContent;
-      // const octave = button.getAttribute('octave')
       const notes = scribble.chord(`${chord}`)
       notes.forEach(note => {
         this.playNote(note)
@@ -111,15 +109,10 @@ class ControlPanel {
   }
 
   async addStopStatus() {
-    $('#song-feed-container').attr('status', 'stop')
+    this.status = 'stop'
     await this.sleep(this.waitTime)
-    $('#song-feed-container').attr('status', 'play')
-    // this.clearStartChords()
+    this.status = 'play'
 }
-
-  // clearStartChords() {
-  //   $('.feed-chord[start-chord="start"').attr('start-chord', 'false')
-  // }
 
   chordsForPlay() {
     this.chordFeeds = this.song.chordFeeds.chordFeeds ;
@@ -130,19 +123,10 @@ class ControlPanel {
   }
 
   async addPauseStatus() {
-    $('#song-feed-container').attr('status', 'pause')
+    this.status = 'pause'
     await this.sleep(this.waitTime)
-    $('#song-feed-container').attr('status', 'play')
-    // this.refreshStartChord()
+    this.status = 'play'
   }
-
-  // refreshStartChord() {
-  //   let chords = this.chordsForPlay()
-  //   let startChords = chords.filter(chord => chord.getAttribute('start-chord') === 'start')
-  //   if (startChords.length > 1) {
-  //     startChords[0].setAttribute('start-chord', 'false')
-  //   }
-  // }
 
   async checkForSongAndSave() {
     if (this.song) {
@@ -189,8 +173,9 @@ class ControlPanel {
     songs.fetchCreateSong()
   }
 
-  updateTitleHeader() {
+  updateTitle() {
     const newTitle = $('#new-title').val()
+    this.song.title = newTitle;
     $('h1').text(newTitle)
   }
 
@@ -202,6 +187,7 @@ class ControlPanel {
       const chord = `<button class='custom chord' octave='${octave}'>${chordName}${modifier}</button>`
       $('#chords-container').append(chord)
       this.song.chordContainer.customChords.push(`${chordName}${modifier}-${octave}`)
+      this.song.customChords.push(`${chordName}${modifier}-${octave}`)
       this.song.chordContainer.refreshCustomChords()
       $('#add-chord-container').attr('hidden', true)
     }
