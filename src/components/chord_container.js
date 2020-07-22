@@ -116,10 +116,6 @@ class ChordContainer {
     }
   }
 
-  feedsNotMaxedOut() {
-    return $('#song-feed-container').children().length < 4 ? true : false
-  }
-
   addCustomChords() {
     for (const chord of this.customChords) {
       const chordName = chord.split('-')[0]
