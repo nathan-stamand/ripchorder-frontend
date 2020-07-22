@@ -56,6 +56,37 @@ class Songs {
     this.songsContainer = document.getElementById('songs-container');
     this.allSongs = document.getElementById('all-songs');
     this.allSongs.addEventListener('click', this.hiderUnhider.bind(this));
+    this.sortBtn = $('#sort-button')[0]
+    this.sortBtn.addEventListener('click', this.sortSongs.bind(this))
+  }
+
+  sortSongs() {
+    fetch('http://localhost:3000/songs')
+      .then(res => res.json())
+      .then(res => {
+        res.data.sort(function(a, b) {
+          const songA = a.attributes.title.toUpperCase(); 
+          const songB = b.attributes.title.toUpperCase();
+          if (songA < songB) {
+            return -1;
+          }
+          if (songA > songB) {
+            return 1;
+          }
+          return 0;
+        });
+        return res
+      })
+      .then(res => {
+        this.songs = []
+        res.data.forEach(song => {
+          this.songs.push(new Song(song, this.controlPanel))
+        })
+      })
+      .then(() => {
+        this.songList.innerHTML = this.songs.map(song => song.renderLi()).join('')
+        this.createShowDeleteButtons()
+      })
   }
 
   hiderUnhider(e) {
