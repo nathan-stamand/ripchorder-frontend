@@ -8,7 +8,7 @@ class SongAdapter {
     const tempo = song.tempo
     const key = song.key
     const mode = song.mode
-    const customChords = this.customChords
+    const customChords = song.customChords.join(', ')
     return {song: {title: title, key: key, mode: mode, tempo: tempo, custom_chords: customChords}}
   }
 
