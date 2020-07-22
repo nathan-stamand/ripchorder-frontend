@@ -5,14 +5,14 @@ class Song {
     this.key = songJson.attributes.key;
     this.mode = songJson.attributes.mode;
     this.tempo = songJson.attributes.tempo;
-    this.chordFeeds = new ChordFeeds(songJson.attributes.chord_feeds);
+    this.chordFeeds = new ChordFeeds(songJson.attributes.chord_feeds, this.id, controlPanel);
     this.customChords = songJson.attributes.custom_chords ? songJson.attributes.custom_chords.split(', ') : [];
     this.adapter = new SongAdapter;
     this.chordContainer = new ChordContainer(this, controlPanel)
   }
 
   fetchSaveSong() {
-    this.adapter.saveSong(this.id).then(() => this.chordFeeds.saveChordFeeds())
+    this.adapter.saveSong(this).then(() => this.chordFeeds.saveChordFeeds())
   }
 
   renderLi() {

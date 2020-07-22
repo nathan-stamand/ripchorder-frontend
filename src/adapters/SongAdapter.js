@@ -3,32 +3,24 @@ class SongAdapter {
     this.baseUrl = 'http://localhost:3000/songs';
   }
 
-  saveVariables() {
-    const title = $('h1').text();
-    const tempo = $('#tempo').val();
-    const key = $('#key').val();
-    const mode = $('#mode').val();
-    const customChords = this.getCustomChordArray();
+  saveVariables(song) {
+    const title = song.title
+    const tempo = song.tempo
+    const key = song.key
+    const mode = song.mode
+    const customChords = this.customChords
     return {song: {title: title, key: key, mode: mode, tempo: tempo, custom_chords: customChords}}
   }
 
-  getCustomChordArray() {
-    const customChordBtns = $('.custom.chord').toArray();
-    const customChords = customChordBtns.map(btn => {
-      return `${btn.textContent}-${btn.getAttribute('octave')}`
-    }).join(', ')
-    return customChords
-  }
-
-  saveSong(songId) {
+  saveSong(song) {
     const songObj = {
       method: "PATCH",
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(this.saveVariables(songId))
+      body: JSON.stringify(this.saveVariables(song))
     }
-    return fetch(this.baseUrl + `/${songId}`, songObj).then(res => res.json())
+    return fetch(this.baseUrl + `/${song.id}`, songObj).then(res => res.json())
   }
 }
