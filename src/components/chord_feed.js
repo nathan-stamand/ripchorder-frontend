@@ -1,9 +1,10 @@
 class ChordFeed {
-  constructor(feedJson) {
+  constructor(feedJson, controlPanel) {
     this.id = feedJson.id;
     this.position = feedJson.position;
     this.chord_array = feedJson.chord_array ? feedJson.chord_array.split(', ') : [];
     this.song_id = feedJson.song_id;
+    this.controlPanel = controlPanel
     this.adapter = new ChordFeedAdapter
   }
 
@@ -19,12 +20,17 @@ class ChordFeed {
   }
 
   addFeedChordEventListener(feedChord) {
+    let thisFeed = this;
     feedChord.addEventListener('mousedown', function(e) {
       feedChord.remove()
+      let feedSiblings = $(`div#${thisFeed.position}.feed`).children().toArray()
+      let newChordArray = feedSiblings.map(child => child.textContent)
+      thisFeed.chord_array = newChordArray
+      thisFeed.controlPanel.chordsForPlay()
     })
   }
 
   fetchUpdateChordFeed() {
-    this.adapter.updateChordFeed(this.position, this.id)
+    this.adapter.updateChordFeed(this)
   }
 }

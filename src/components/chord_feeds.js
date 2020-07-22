@@ -1,14 +1,34 @@
 class ChordFeeds {
-  constructor(chordFeedJson, songId) {
+  constructor(chordFeedJson, songId, controlPanel) {
     this.chordFeeds = [];
     this.songId = songId
+    this.controlPanel = controlPanel
     this.renderFeeds(chordFeedJson)
     this.adapter = new ChordFeedsAdapter
   }
 
+  tryAddFeedChord(button) {
+    const chord = button.textContent != 'REST.' ? `${button.textContent}-${button.getAttribute('octave')}` : 'REST.'
+    const feedId = this.findNextAvailableFeed()
+    if (feedId) {
+      let feed = this.chordFeeds.find(feed => feed.id === feedId);
+      feed.chord_array.push(chord)
+    }
+    this.refreshFeeds()
+  }
+
+  findNextAvailableFeed() {
+    for (const feed of this.chordFeeds) {
+      if (feed.chord_array.length < 8) {
+        return feed.id
+      }
+    }
+  }
+
   renderFeeds(chordFeedJson) {
     chordFeedJson.forEach(feed => {
-      this.chordFeeds.push(new ChordFeed(feed))
+      this.chordFeeds.push(new ChordFeed(feed, this.controlPanel
+        ))
     });
   }
 
