@@ -191,7 +191,7 @@ class ControlPanel {
       const modifier = $('#modifier').val()
       const octave = $('select#octave').val()
       this.song.customChords.push(`${chordName}${modifier}-${octave}`)
-      this.song.display()
+      this.song.chordContainer.refreshCustomChords()
       $('#add-chord-container').attr('hidden', true)
     }
   }
