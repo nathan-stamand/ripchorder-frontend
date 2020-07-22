@@ -182,7 +182,6 @@ class ControlPanel {
   updateTitle() {
     const newTitle = $('#new-title').val()
     this.song.title = newTitle;
-    // $('h1').text(newTitle)
     this.song.display()
   }
 
