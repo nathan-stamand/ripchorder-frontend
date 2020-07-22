@@ -68,12 +68,12 @@ class ChordContainer {
 
   addChordListener(button) {
     const chordContainer = this;
+    const chordFeeds = this.chordFeeds;
+    const controlPanel = this.controlPanel;
     button.addEventListener('mousedown', function(e) {
       chordContainer.playChord(button)
-      let feedId = chordContainer.findNextAvailableFeed()
-      if (feedId) {
-        chordContainer.addFeedChord(feedId, button)
-      }
+      chordFeeds.tryAddFeedChord(button)
+      controlPanel.chordsForPlay()
     })
   }
 
@@ -95,15 +95,6 @@ class ChordContainer {
     synth.triggerAttackRelease(note, '4n')
   }
 
-  findNextAvailableFeed() {
-    const feeds = this.chordFeeds.chordFeeds;
-    for (const feed of feeds) {
-      if (feed.chord_array.length < 8) {
-        return feed.id
-      }
-    }
-  }
-
   addFeedChord(feedId, button) {
     const chord = document.createElement('div')
     chord.className = 'feed-chord'
@@ -123,12 +114,6 @@ class ChordContainer {
     else {
       chord.textContent = 'REST.'
     }
-  }
-
-  addFeedChordEventListener(feedChord) {
-    feedChord.addEventListener('mousedown', function(e) {
-      feedChord.remove()
-    })
   }
 
   feedsNotMaxedOut() {
