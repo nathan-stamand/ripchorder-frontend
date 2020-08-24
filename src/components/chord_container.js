@@ -91,7 +91,19 @@ class ChordContainer {
 
   playNote(note) {
     Tone.Transport.bpm.value = $('#tempo option:selected').text();
-    const synth = new Tone.Synth().toDestination()
+    const synth = new Tone.Synth({
+      "oscillator": {
+        "type": "sine",
+        "volume": -8
+      },
+      "envelope": {
+        "attack": 0.04,
+        "release": 0.09,
+        "decay": 0.1,
+        "sustain": .8
+      }
+    })
+    synth.toDestination()
     synth.triggerAttackRelease(note, '4n')
   }
 
