@@ -46,7 +46,8 @@ class Song {
     const title = document.createElement('h1')
     title.textContent = this.title
     title.id = this.id
-    document.body.insertAdjacentElement('afterbegin', title)
+    const mainContainer = document.getElementById('logo')
+    mainContainer.insertAdjacentElement('afterend', title)
     $('#new-title').val(title.textContent)
   }
 }
