@@ -87,7 +87,7 @@ div.feed {
 div#chords-container {
   margin: 0 auto;
   padding: 8px;
-  background-color: rgb(223, 173, 99);
+  background-color: rgba(223, 174, 99, 0.438);
   display: inline-flex;
   flex-direction: row;
   justify-content: center;
@@ -126,6 +126,6 @@ ul {
 }
 
 #add-chord-container {
-  background-color: rgb(223, 173, 99);
+  background-color: rgba(223, 174, 99, 0.438);
   padding: 5px;
 }
