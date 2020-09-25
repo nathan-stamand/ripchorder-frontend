@@ -112,10 +112,10 @@ class ControlPanel {
         "volume": -8
       },
       "envelope": {
-        "attack": 0.04,
-        "release": 0.09,
-        "decay": 0.1,
-        "sustain": .8
+        "attack": 0.9,
+        "release": 0.05,
+        "decay": 0.5,
+        "sustain": 1
       }
     })
     synth.toDestination()
